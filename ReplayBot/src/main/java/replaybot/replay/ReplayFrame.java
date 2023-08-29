@@ -5,15 +5,14 @@ import java.util.Map;
 
 public class ReplayFrame {
 
-	public final double time;
-	public final double delta;
-	public final Map<Integer, ReplayActorUpdate> actorUpdatesById;
+	private final double time;
+	private final double delta;
+	private final List<ReplayActorUpdate> updatedActors;
 	
-	public ReplayFrame(double time, double delta, 
-			Map<Integer, ReplayActorUpdate> actorUpdatesById) {
+	public ReplayFrame(double time, double delta, List<ReplayActorUpdate> updatedActors) {
 		this.time = time;
 		this.delta = delta;
-		this.actorUpdatesById = actorUpdatesById;
+		this.updatedActors = updatedActors;
 	}
 	
 

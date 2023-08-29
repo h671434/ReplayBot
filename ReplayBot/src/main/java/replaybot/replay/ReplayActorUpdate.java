@@ -5,28 +5,14 @@ import replaybot.data.output.ControlsOutput;
 
 public class ReplayActorUpdate {
 		
-	public final int actorId;
-	private RigidBodyState rigidBody;
+	private final int actorId;
+	private final int objectId;
+	private final String attributeJson;
 	
-	public ReplayActorUpdate(int actorId, RigidBodyState rigidBody) {
+	public ReplayActorUpdate(int actorId, int objectId, String attributeJson) {
 		this.actorId = actorId;
-		this.rigidBody = rigidBody;
-	}
-	
-	public ReplayActorUpdate(int actorId) {
-		this(actorId, null);
-	}
-	
-	public boolean hasRigidBody() {
-		return rigidBody != null;
-	}
-	
-	public void setRigidBody(RigidBodyState rigidBody) {
-		this.rigidBody = rigidBody;
-	}
-	
-	public RigidBodyState getRigidBody() {
-		return rigidBody;
+		this.objectId = objectId;
+		this.attributeJson = attributeJson;
 	}
 	
 	

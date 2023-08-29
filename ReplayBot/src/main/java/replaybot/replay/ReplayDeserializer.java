@@ -17,10 +17,6 @@ import replaybot.data.output.ControlsOutput;
 import replaybot.math.Vector3;
 
 public class ReplayDeserializer extends StdDeserializer<Replay>{
-
-	private static final String RB_STATE_UPDATE = "TAGame.RBActor_TA:ReplicatedRBState";
-	
-	private List<String> objects;
 	
 	public ReplayDeserializer() {
 		this(null);
@@ -38,11 +34,11 @@ public class ReplayDeserializer extends StdDeserializer<Replay>{
 		JsonNode objectsNode = replayNode.get("objects");
 		JsonNode framesNode = replayNode.get("network_frames").get("frames");
 		
-		objects = deserializeObjects(objectsNode);
 		ReplayProperties properties = deserializeProperties(propertiesNode);
-		List<ReplayFrame> frames = deserializeFrames(framesNode);
+		List<ReplayFrame> frames = deserializeAllFrames(framesNode);
+		List<String> objects = deserializeObjects(objectsNode);
 		
-		return new Replay(properties, frames);
+		return new Replay(properties, frames, objects);
 	}
 	
 	private List<String> deserializeObjects(JsonNode objectsNode) {
@@ -60,10 +56,10 @@ public class ReplayDeserializer extends StdDeserializer<Replay>{
 		return null;
 	}
 	
-	private List<ReplayFrame> deserializeFrames(JsonNode framesNode) {
+	private List<ReplayFrame> deserializeAllFrames(JsonNode frameArrayNode) {
 		List<ReplayFrame> frames = new ArrayList<>();
 		
-		framesNode.elements().forEachRemaining((JsonNode frameNode) -> {
+		frameArrayNode.elements().forEachRemaining((JsonNode frameNode) -> {
 			frames.add(deserializeFrame(frameNode));
 		});
 		
@@ -73,12 +69,28 @@ public class ReplayDeserializer extends StdDeserializer<Replay>{
 	private ReplayFrame deserializeFrame(JsonNode frameNode) {
 		double time = frameNode.get("time").doubleValue();
 		double delta = frameNode.get("delta").doubleValue();
+		List<ReplayActorUpdate> updatedActors = deserializeAllActorUpdates(frameNode.get("updated_actors"));
 		
-		//TODO
-		
-		return new ReplayFrame(time, delta, null /*TODO*/);
+		return new ReplayFrame(time, delta, updatedActors);
 	}
 	
+	private List<ReplayActorUpdate> deserializeAllActorUpdates(JsonNode updatedActorArrayNode) {
+		List<ReplayActorUpdate> updatedActors = new ArrayList<>();
+		
+		updatedActorArrayNode.elements().forEachRemaining((JsonNode updatedActorNode) -> {
+			updatedActors.add(deserializeActorUpdate(updatedActorNode));
+		});;
+		
+		return updatedActors;
+	}
+	
+	private ReplayActorUpdate deserializeActorUpdate(JsonNode updatedActorNode) {
+		int actorId = updatedActorNode.get("actor_id").intValue();
+		int objectId = updatedActorNode.get("object_id").intValue();
+		String attributeJson = updatedActorNode.get("attribute").toString();
+		
+		return new ReplayActorUpdate(actorId, objectId, attributeJson);
+	}
 	
 	private RigidBodyState deserializeRigidBody(JsonNode rigidBodyNode) {
 		Vector3 location = deserializeVector(rigidBodyNode.get("location"));
