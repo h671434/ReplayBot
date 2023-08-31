@@ -1,4 +1,4 @@
-package replaybot.data.input;
+package replaybot.data.rigidbody;
 
 import rlbot.flat.Touch;
 

@@ -1,5 +1,6 @@
 package replaybot;
 
+import replaybot.gui.BotGUI;
 import replaybot.util.PortReader;
 import rlbot.manager.BotManager;
 

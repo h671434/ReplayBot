@@ -1,4 +1,4 @@
-package replaybot.data.input;
+package replaybot.data.rigidbody;
 
 public class Car extends RigidBody {
 
