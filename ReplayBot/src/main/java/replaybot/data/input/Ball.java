@@ -2,11 +2,11 @@ package replaybot.data.input;
 
 import rlbot.flat.Touch;
 
-public class BallData extends RigidBodyState {
+public class Ball extends RigidBody {
 	
 	public final double latestTouch;
 	
-	public BallData(rlbot.flat.BallInfo ball) {
+	public Ball(rlbot.flat.BallInfo ball) {
 		super(ball.physics());
 		this.latestTouch = ball.latestTouch().gameSeconds();
 	}

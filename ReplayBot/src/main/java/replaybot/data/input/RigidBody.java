@@ -2,14 +2,14 @@ package replaybot.data.input;
 
 import replaybot.math.Vector3;
 
-public class RigidBodyState {
+public class RigidBody {
 
 	public final Vector3 location;
 	public final Vector3 rotation;
 	public final Vector3 linearVelocity;
 	public final Vector3 angularVelocity;
 	
-	public RigidBodyState(Vector3 location, Vector3 rotation, Vector3 linearVelocity,
+	public RigidBody(Vector3 location, Vector3 rotation, Vector3 linearVelocity,
 			Vector3 angularVelocity) {
 		this.location = location;
 		this.rotation = rotation;
@@ -17,7 +17,7 @@ public class RigidBodyState {
 		this.angularVelocity = angularVelocity;
 	}
 	
-	public RigidBodyState(rlbot.flat.Physics physics) {
+	public RigidBody(rlbot.flat.Physics physics) {
 		this.location = new Vector3(physics.location());
 		this.rotation = new Vector3(physics.rotation());
 		this.linearVelocity = new Vector3(physics.velocity());

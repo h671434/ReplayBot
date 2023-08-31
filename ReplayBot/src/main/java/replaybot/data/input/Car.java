@@ -1,6 +1,6 @@
 package replaybot.data.input;
 
-public class CarData extends RigidBodyState {
+public class Car extends RigidBody {
 
 	public final int id;
 	public final int team;
@@ -10,7 +10,7 @@ public class CarData extends RigidBodyState {
 	public final boolean hasWheelContact;
 	public final boolean isDemolished;
 	
-	public CarData(rlbot.flat.PlayerInfo player) {
+	public Car(rlbot.flat.PlayerInfo player) {
 		super(player.physics());
 		this.id = player.spawnId();
 		this.team = player.team();

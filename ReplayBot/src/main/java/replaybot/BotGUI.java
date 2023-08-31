@@ -40,7 +40,7 @@ public class BotGUI {
         panel.add(dataPanel, BorderLayout.CENTER);
         frame.add(panel);
 
-        URL url = Main.class.getClassLoader().getResource("icon.png");
+        URL url = BotGUI.class.getClassLoader().getResource("icon.png");
         Image image = Toolkit.getDefaultToolkit().createImage(url);
         
         panel.add(new JLabel(new ImageIcon(image)), BorderLayout.WEST);
