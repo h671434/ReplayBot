@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReplayProperties {
 
-	@JsonProperty("TeamSize")
 	public int teamSize;
 	
 	public ReplayProperties() {

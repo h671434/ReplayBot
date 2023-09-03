@@ -14,31 +14,24 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import replaybot.Main;
+import replaybot.data.replay.storage.ReplayDeserializer;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonDeserialize(using = ReplayDeserializer.class)
 public class Replay {
 
-	@JsonProperty("properties")
 	private final ReplayProperties properties;
-	
-    
-	private List<Map<String, Object>> frames;
+	private final List<ReplayFrame> frames;
 	
 	public Replay() {
 		this(null, null);
 	}
 	
-	public Replay(ReplayProperties properties, List<Map<String, Object>> frames) {
+	public Replay(ReplayProperties properties, List<ReplayFrame>  frames) {
 		this.properties = properties;
 		this.frames = frames;
-	}
-	
-	@SuppressWarnings("unchecked")
-	@JsonProperty("network_frames")
-	private void unpackFrames(Map<String, Object> networkFrames) {
-		frames = (List<Map<String, Object>>)(networkFrames.get("frames"));
 	}
 
 	public ReplayProperties getProperties() {
@@ -46,8 +39,7 @@ public class Replay {
 	}
 	
 	public ReplayFrame getFrame(int index) {
-		System.out.println(frames.get(0));
-		return null;
+		return frames.get(index);
 	}
 
 }

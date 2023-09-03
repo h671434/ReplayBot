@@ -5,13 +5,10 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import replaybot.data.replay.updatedactor.UpdatedActor;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReplayFrame {
-	
-	static int i = 0;
 	
 	@JsonProperty("time")
 	private final double time;
@@ -19,18 +16,17 @@ public class ReplayFrame {
 	@JsonProperty("delta")
 	private final double delta;
 	
-	@JsonProperty("updated_actors")
-	private final List<UpdatedActor> updatedActors;
+	@JsonProperty("replications")
+	private final List<Replication> replications;
 	
 	public ReplayFrame() {
 		this(0, 0, null);
 	}
 	
-	public ReplayFrame(double time, double delta, List<UpdatedActor> updatedActors) {
+	public ReplayFrame(double time, double delta, List<Replication> updatedActors) {
 		this.time = time;
 		this.delta = delta;
-		this.updatedActors = updatedActors;
-		System.out.println("f" + i);
+		this.replications = updatedActors;
 	}
 	
 	public double getTime() {
@@ -41,8 +37,8 @@ public class ReplayFrame {
 		return delta;
 	}
 	
-	public UpdatedActor getUpdatedActor(int index) {
-		return updatedActors.get(index);
+	public Replication getReplication(int index) {
+		return replications.get(index);
 	}
 
 }
