@@ -60,13 +60,15 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
 			current = jp.nextToken();
 		}
 		
+		List<ReplayFrame> frames = null;
+		
 		for(; current != JsonToken.END_OBJECT; current = jp.nextToken()) {
 			if(current == JsonToken.START_OBJECT && "body".equals(jp.getCurrentName())) {
-				return deserializeContentBody(jp);
+				frames = deserializeContentBody(jp);
 			}
 		}
 		
-		return null;
+		return frames;
 	}
 	
 	private List<ReplayFrame> deserializeContentBody(JsonParser jp) throws JsonParseException, IOException {

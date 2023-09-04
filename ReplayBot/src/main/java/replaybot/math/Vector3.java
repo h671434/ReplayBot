@@ -6,8 +6,10 @@ public class Vector3 {
 
 	@JsonProperty("x")
 	public final double x;
+	
 	@JsonProperty("y")
 	public final double y;
+	
 	@JsonProperty("z")
 	public final double z;
 	

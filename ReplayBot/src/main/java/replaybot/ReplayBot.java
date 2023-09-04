@@ -1,7 +1,7 @@
 package replaybot;
 
-import replaybot.data.input.DataPacket;
-import replaybot.data.output.ControlsOutput;
+import replaybot.data.ControlsOutput;
+import replaybot.data.DataPacket;
 import rlbot.Bot;
 import rlbot.ControllerState;
 import rlbot.flat.GameTickPacket;
