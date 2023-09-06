@@ -3,8 +3,6 @@ package replaybot.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import replaybot.data.actor.Ball;
-import replaybot.data.actor.Car;
 import rlbot.flat.GameTickPacket;
 
 public class DataPacket {

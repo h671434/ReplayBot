@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 
 class DeserializeReplayTest {
 
-	private static final String PATH = "src/test/resources/replays/ex.json";
+	private static final String PATH = "RocketLeagueReplayParser.Console.3.3.0/example.json";
 	
 	@Test
 	void test() {
@@ -35,7 +35,7 @@ class DeserializeReplayTest {
 		}
 		
 		
-		System.out.println(r.getFrame(2).getTime());
+		System.out.println(r.frames.get(0).time);
 	}
 
 }

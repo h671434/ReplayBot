@@ -4,13 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Vector3 {
 
-	@JsonProperty("x")
 	public final double x;
-	
-	@JsonProperty("y")
 	public final double y;
-	
-	@JsonProperty("z")
 	public final double z;
 	
 	public Vector3(double x, double y, double z) {

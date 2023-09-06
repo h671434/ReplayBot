@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,24 +23,12 @@ import replaybot.data.replay.storage.ReplayDeserializer;
 @JsonDeserialize(using = ReplayDeserializer.class)
 public class Replay {
 
-	private final ReplayProperties properties;
-	private final List<ReplayFrame> frames;
+	public final ReplayProperties properties;
+	public final List<ReplayFrame> frames;
 	
-	public Replay() {
-		this(null, null);
-	}
-	
-	public Replay(ReplayProperties properties, List<ReplayFrame>  frames) {
+	public Replay(ReplayProperties properties, List<ReplayFrame> frames) {
 		this.properties = properties;
-		this.frames = frames;
-	}
-
-	public ReplayProperties getProperties() {
-		return properties;
-	}
-	
-	public ReplayFrame getFrame(int index) {
-		return frames.get(index);
+		this.frames = Collections.unmodifiableList(frames);
 	}
 
 }

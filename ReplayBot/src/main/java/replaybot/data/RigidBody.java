@@ -1,4 +1,4 @@
-package replaybot.data.attribute;
+package replaybot.data;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,19 +13,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import replaybot.gui.BotGUI;
 import replaybot.math.Vector3;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class RigidBody {
 	
-	@JsonProperty("location")
 	public final Vector3 location;
-	
-	@JsonProperty("rotation")
 	public final Vector3 rotation;
-	
-	@JsonProperty("linear_velocity")
 	public final Vector3 linearVelocity;
-	
-	@JsonProperty("angular_velocity")
 	public final Vector3 angularVelocity;
 	
 	public RigidBody() {

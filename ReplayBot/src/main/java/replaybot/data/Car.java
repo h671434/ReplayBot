@@ -1,9 +1,8 @@
-package replaybot.data.actor;
+package replaybot.data;
 
-import replaybot.data.attribute.RigidBody;
+public class Car {
 
-public class Car extends Actor {
-
+	public final int id;
 	public final int team;
 	public final int boost;
 	public final boolean jumped;
@@ -13,7 +12,7 @@ public class Car extends Actor {
 	public final RigidBody physics;
 	
 	public Car(rlbot.flat.PlayerInfo player) {
-		super(player.spawnId());
+		this.id = player.spawnId();
 		this.team = player.team();
 		this.boost = player.boost();
 		this.jumped = player.jumped();
