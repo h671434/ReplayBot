@@ -43,8 +43,9 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
 		
 		ReplayProperties properties = null;
 		List<ReplayFrame> frames = null;
-		
+		System.out.println("r");
 		for(; current != JsonToken.END_OBJECT; current = jp.nextToken()) {
+			System.out.println(jp.getCurrentName());
 			if(current == JsonToken.START_OBJECT && "Properties".equals(jp.getCurrentName())) {
 				properties = deserializeProperties(jp);
 			} else if(current == JsonToken.START_ARRAY && "Frames".equals(jp.getCurrentName())) {
@@ -57,7 +58,8 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
 		return new Replay(properties, frames);
 	}
 	
-	private ReplayProperties deserializeProperties(JsonParser jp) {
+	private ReplayProperties deserializeProperties(JsonParser jp) throws JsonParseException, IOException {
+		jp.skipChildren();
 		return null; //TODO
 	}
 	
