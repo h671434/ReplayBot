@@ -7,7 +7,7 @@ import replaybot.math.Vector3;
 
 public class ActorUpdate {
 	
-	public final int id;
+	private final int id;
 	private final int nameId;
 	private final String typeName;
 	private final String className;
@@ -32,6 +32,38 @@ public class ActorUpdate {
 	
 	public boolean isUpdated() {
 		return properties != null;
+	}
+	
+	public int getActorId() {
+		return id;
+	}
+
+	public int getNameId() {
+		return nameId;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public Vector3 getInitialPostion() {
+		return initialPostion;
+	}
+
+	public Vector3 getInitialRotation() {
+		return initialRotation;
+	}
+
+	public ActorUpdateProperty<?> getProperty(int index) {
+		return properties.get(index);
+	}
+	
+	public int amountOfUpdatedProperties() {
+		return properties.size();
 	}
 	
 }

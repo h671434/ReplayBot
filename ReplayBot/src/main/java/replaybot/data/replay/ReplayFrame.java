@@ -12,16 +12,40 @@ import replaybot.data.replay.actor.ActorUpdate;
 
 public class ReplayFrame {
 	
-	public final double time;
-	public final double delta;
-	public final List<Integer> deletedActorIds;
-	public final List<ActorUpdate> updatedActors;
+	private final double time;
+	private final double delta;
+	private final List<Integer> deletedActorIds;
+	private final List<ActorUpdate> updatedActors;
 	
 	public ReplayFrame(double time, double delta, List<Integer> deletedActorIds, List<ActorUpdate> updatedActors) {
 		this.time = time;
 		this.delta = delta;
 		this.deletedActorIds = Collections.unmodifiableList(deletedActorIds);
 		this.updatedActors = Collections.unmodifiableList(updatedActors);
+	}
+	
+	public double getTime() {
+		return time;
+	}
+
+	public double getDelta() {
+		return delta;
+	}
+
+	public int getDeletedActorId(int index) {
+		return deletedActorIds.get(index);
+	}
+	
+	public int amountOfDeletedActors() {
+		return deletedActorIds.size();
+	}
+
+	public ActorUpdate getUpdatedActor(int index) {
+		return updatedActors.get(index);
+	}
+
+	public int amountOfUpdatedActors() {
+		return updatedActors.size();
 	}
 
 }

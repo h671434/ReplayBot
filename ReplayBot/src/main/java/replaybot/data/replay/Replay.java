@@ -23,12 +23,24 @@ import replaybot.data.replay.storage.ReplayDeserializer;
 @JsonDeserialize(using = ReplayDeserializer.class)
 public class Replay {
 
-	public final ReplayProperties properties;
-	public final List<ReplayFrame> frames;
+	private final ReplayProperties properties;
+	private final List<ReplayFrame> frames;
 	
 	public Replay(ReplayProperties properties, List<ReplayFrame> frames) {
 		this.properties = properties;
 		this.frames = Collections.unmodifiableList(frames);
+	}
+	
+	public ReplayProperties getProperties() {
+		return properties;
+	}
+	
+	public ReplayFrame getFrame(int index) {
+		return frames.get(index);
+	}
+	
+	public int amountOfFrames() {
+		return frames.size();
 	}
 
 }

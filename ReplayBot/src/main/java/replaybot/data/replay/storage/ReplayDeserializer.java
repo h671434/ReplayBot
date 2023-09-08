@@ -43,14 +43,14 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
 		
 		ReplayProperties properties = null;
 		List<ReplayFrame> frames = null;
-		System.out.println("r");
+		
 		for(; current != JsonToken.END_OBJECT; current = jp.nextToken()) {
-			System.out.println(jp.getCurrentName());
 			if(current == JsonToken.START_OBJECT && "Properties".equals(jp.getCurrentName())) {
 				properties = deserializeProperties(jp);
+				System.out.println(1);
 			} else if(current == JsonToken.START_ARRAY && "Frames".equals(jp.getCurrentName())) {
 				frames = deserializeAllFrames(jp);
-			} else {
+			} else if(current == JsonToken.START_ARRAY) {
 				jp.skipChildren();
 			}
 		}
@@ -65,13 +65,13 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
 	
 	private List<ReplayFrame> deserializeAllFrames(JsonParser jp) throws JsonParseException, IOException {
 		List<ReplayFrame> frames = new ArrayList<>();
-		
-		for(; current != JsonToken.END_ARRAY; current = jp.nextToken()) {
+
+		for(; current != JsonToken.END_ARRAY; current = jp.nextToken()) {	
 			if(current == JsonToken.START_OBJECT) {
 				frames.add(deserializeFrame(jp));
 			}
 		}
-		
+			
 		return frames;
 	}
 	
@@ -146,7 +146,8 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
 				initialRotation = deserializeVector3(jp);
 			} else if(current == JsonToken.VALUE_NUMBER_INT || current == JsonToken.VALUE_NUMBER_FLOAT 
 					|| current == JsonToken.VALUE_FALSE || current == JsonToken.VALUE_FALSE
-					|| current == JsonToken.VALUE_STRING ||current == JsonToken.START_OBJECT) {
+					|| current == JsonToken.VALUE_STRING ||current == JsonToken.START_OBJECT
+					|| current == JsonToken.START_ARRAY) {
 				deserializeActorUpdateProperty(jp).ifPresent(au -> properties.add(au));
 			}
 		}
@@ -174,6 +175,11 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
 	
 	private Optional<ActorUpdateProperty<?>> deserializeActorUpdateProperty(JsonParser jp) throws JsonParseException, IOException {
 		String name = jp.getCurrentName();
+		
+		if(name == null) {
+			return Optional.empty();
+		}
+		
 		ActorUpdateProperty<?> property = null;
 		
 		switch(name) {
@@ -199,12 +205,14 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
        case "TAGame.Car_TA:RumblePickups":
        case "TAGame.RumblePickups_TA:AttachedPickup":
        case "TAGame.SpecialPickup_Football_TA:WeldedBall":
+    	   jp.skipChildren();
 //    	   asp.Data = ActiveActor.Deserialize(br);
            break;
        case "TAGame.GameEvent_TA:ReplicatedStateIndex":
 //           asp.Data = br.ReadUInt32Max(140); // number is made up, I dont know the max yet // TODO: Revisit this. It might work well enough, but looks fishy
            break;
        case "TAGame.Team_TA:LogoData":
+    	   jp.skipChildren();
 //           asp.Data = LogoData.Deserialize(br);
            break;
        case "TAGame.CrowdManager_TA:ReplicatedGlobalOneShotSound":
@@ -216,6 +224,7 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
 //           var objectTarget = ObjectTarget.Deserialize(br);
 //           asp.Data = objectTarget;
 //           ValidateObjectIndex(objectTarget.ObjectIndex, objectIndexToName);
+    	   jp.skipChildren();
            break;
         case "Engine.PlayerReplicationInfo:Ping":
         case "TAGame.Vehicle_TA:ReplicatedSteer":
@@ -354,25 +363,32 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
             break;
         case "Engine.PlayerReplicationInfo:UniqueId":
 //            asp.Data = UniqueId.Deserialize(br, licenseeVersion, netVersion);
+        	jp.skipChildren();
             break;
         case "TAGame.PRI_TA:PartyLeader":
 //            asp.Data = PartyLeader.Deserialize(br, licenseeVersion, netVersion);
+        	jp.skipChildren();
             break;
         case "TAGame.PRI_TA:ClientLoadout":
 //            asp.Data = ClientLoadout.Deserialize(br);
+        	jp.skipChildren();
             break;
         case "TAGame.PRI_TA:CameraSettings":
         case "TAGame.CameraSettingsActor_TA:ProfileSettings":
 //            asp.Data = CameraSettings.Deserialize(br, engineVersion, licenseeVersion);
-            break;
+        	jp.skipChildren();
+        	break;
         case "TAGame.Car_TA:TeamPaint":
         case "ProjectX.GRI_X:GameServerID":
         case "ProjectX.GRI_X:Reservations":
+        	jp.skipChildren();
             break;
         case "TAGame.Car_TA:ReplicatedDemolishGoalExplosion":
 //            asp.Data = ReplicatedDemolishGoalExplosion.Deserialize(br, netVersion);
-            break;
+        	jp.skipChildren();
+        	break;
         case "TAGame.GameEvent_Soccar_TA:ReplicatedMusicStinger":
+        	jp.skipChildren();
             break;
         case "TAGame.CarComponent_FlipCar_TA:FlipCarTime":
         case "TAGame.Ball_TA:ReplicatedBallScale":
@@ -401,39 +417,50 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
             break;
         case "TAGame.GameEvent_SoccarPrivate_TA:MatchSettings":
 //            asp.Data = PrivateMatchSettings.Deserialize(br);
+        	jp.skipChildren();
             break;
         case "TAGame.PRI_TA:ClientLoadoutOnline":
 //            asp.Data = ClientLoadoutOnline.Deserialize(br, engineVersion, licenseeVersion, objectIndexToName);
-            break;
+        	jp.skipChildren();
+        	break;
         case "TAGame.GameEvent_TA:GameMode":
             break;
         case "TAGame.PRI_TA:ClientLoadoutsOnline":
+        	jp.skipChildren();
 //            asp.Data = ClientLoadoutsOnline.Deserialize(br, engineVersion, licenseeVersion, objectIndexToName);
             break;
         case "TAGame.PRI_TA:ClientLoadouts":
+        	jp.skipChildren();
 //            asp.Data = ClientLoadouts.Deserialize(br);
             break;
         case "TAGame.Team_TA:ClubColors":
         case "TAGame.Car_TA:ClubColors":
+        	jp.skipChildren();
 //            asp.Data = ClubColors.Deserialize(br);
             break;
         case "TAGame.RBActor_TA:WeldedInfo":
+        	jp.skipChildren();
 //            asp.Data = WeldedInfo.Deserialize(br, netVersion);
             break;
         case "TAGame.BreakOutActor_Platform_TA:DamageState":
+        	jp.skipChildren();
 //            asp.Data = DamageState.Deserialize(br, netVersion);
             break;
         case "TAGame.Ball_Breakout_TA:AppliedDamage":
+        	jp.skipChildren();
 //            asp.Data = AppliedDamage.Deserialize(br, netVersion);
             break;
         case "TAGame.Ball_TA:ReplicatedExplosionData":
+        	jp.skipChildren();
 //            asp.Data = ReplicatedExplosionData.Deserialize(br, netVersion);
             break;
         case "TAGame.Ball_TA:ReplicatedExplosionDataExtended":
+        	jp.skipChildren();
 //            asp.Data = ReplicatedExplosionDataExtended.Deserialize(br, netVersion);
             break;
         case "TAGame.PRI_TA:SecondaryTitle":
         case "TAGame.PRI_TA:PrimaryTitle":
+        	jp.skipChildren();
 //            asp.Data = Title.Deserialize(br);
             break;
         case "TAGame.PRI_TA:PlayerHistoryKey":
@@ -441,26 +468,34 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
 //            asp.Data = br.ReadUInt32FromBits(14);
             break;
         case "TAGame.GameEvent_Soccar_TA:ReplicatedStatEvent":
+        	jp.skipChildren();
 //            asp.Data = ReplicatedStatEvent.Deserialize(br);
             break;
         case "TAGame.PRI_TA:RepStatTitles":
+        	jp.skipChildren();
 //            asp.Data = RepStatTitle.Deserialize(br);
             break;
         case "TAGame.Car_TA:ReplicatedDemolish_CustomFX":
+        	jp.skipChildren();
 //            asp.Data = ReplicatedDemolishCustomFx.Deserialize(br, netVersion);
             break;
         case "TAGame.VehiclePickup_TA:NewReplicatedPickupData":
+        	jp.skipChildren();
           //  asp.Data = NewReplicatedPickupData.Deserialize(br);
             break;
         case "TAGame.RumblePickups_TA:PickupInfo":
+        	jp.skipChildren();
            // asp.Data = PickupInfo.Deserialize(br);
             break;
         case "TAGame.Car_TA:ReplicatedDemolish":
+        	jp.skipChildren();
            // asp.Data = ReplicatedDemolish.Deserialize(br, netVersion);
             break;
+        default:
+        	System.err.println(name);
 		}
 		
-		return Optional.of(property);
+		return Optional.ofNullable(property);
 	}
 	
 	private RigidBody deserializeRigidBody(JsonParser jp) throws JsonParseException, IOException {

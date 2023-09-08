@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +13,9 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+
+import replaybot.data.replay.actor.ActorUpdate;
+import replaybot.data.replay.actor.ActorUpdateProperty;
 
 class DeserializeReplayTest {
 
@@ -34,8 +39,22 @@ class DeserializeReplayTest {
 			e.printStackTrace();
 		}
 		
+		LinkedHashSet<String> hashSet = new LinkedHashSet<String>();
 		
-		System.out.println(r.frames.get(0).time);
+		for(int i = 0; i < r.amountOfFrames(); i++) {
+			for(int j = 0; j < r.getFrame(i).amountOfUpdatedActors(); j++) {
+				if(r.getFrame(i).getUpdatedActor(j).isUpdated()) {
+					ActorUpdate u = r.getFrame(i).getUpdatedActor(j);
+
+					for(int k = 0; k < u.amountOfUpdatedProperties(); k++) {
+						hashSet.add(u.getProperty(k).getName());
+					}
+				}
+			}
+		}
+
+
+		hashSet.forEach(System.out::println);
 	}
 
 }
