@@ -36,12 +36,20 @@ public class ReplayFrame {
 		return deletedActorIds.get(index);
 	}
 	
+	public List<Integer> getAllDeletedActorIds() {
+		return deletedActorIds;
+	}
+	
 	public int amountOfDeletedActors() {
 		return deletedActorIds.size();
 	}
 
 	public ActorUpdate getUpdatedActor(int index) {
 		return updatedActors.get(index);
+	}
+	
+	public List<ActorUpdate> getAllUpdatedActors() {
+		return updatedActors;
 	}
 
 	public int amountOfUpdatedActors() {

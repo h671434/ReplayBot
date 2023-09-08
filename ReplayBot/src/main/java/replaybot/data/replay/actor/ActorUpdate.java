@@ -57,6 +57,10 @@ public class ActorUpdate {
 	public Vector3 getInitialRotation() {
 		return initialRotation;
 	}
+	
+	public List<ActorUpdateProperty<?>> getPropertyUpdates() {
+		return properties;
+	}
 
 	public ActorUpdateProperty<?> getProperty(int index) {
 		return properties.get(index);

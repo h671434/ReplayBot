@@ -43,12 +43,12 @@ class DeserializeReplayTest {
 		
 		for(int i = 0; i < r.amountOfFrames(); i++) {
 			for(int j = 0; j < r.getFrame(i).amountOfUpdatedActors(); j++) {
-				if(r.getFrame(i).getUpdatedActor(j).isUpdated()) {
+				if(r.getFrame(i).getUpdatedActor(j).isNew()) {
 					ActorUpdate u = r.getFrame(i).getUpdatedActor(j);
 
-					for(int k = 0; k < u.amountOfUpdatedProperties(); k++) {
-						hashSet.add(u.getProperty(k).getName());
-					}
+
+						hashSet.add(u.getActorId() + " " + u.getClassName());
+
 				}
 			}
 		}
