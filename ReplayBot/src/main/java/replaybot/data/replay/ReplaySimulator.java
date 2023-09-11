@@ -19,7 +19,7 @@ public class ReplaySimulator {
 	
 	private final Map<Integer, Actor> actorById = new HashMap<>();
 	
-	private double stepLengthSeconds = 0.2666; // 16ms is around the same time between rlbot framework packets 
+	private double stepLengthSeconds = 16 / 1000; // 16ms is around the same time between rlbot framework packets 
 	private double currentFrameTime = 0;
 	private int nextFrameIndex = 0;
 	
