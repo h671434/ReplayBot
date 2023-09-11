@@ -1,6 +1,9 @@
 package replaybot.data.replay.actor;
 
 import replaybot.data.RigidBody;
+import replaybot.data.replay.actor.ActorUpdateProperties.ActiveActor;
+import replaybot.data.replay.actor.ActorUpdateProperties.ReplicatedRigidBody;
+import replaybot.math.Vector3;
 
 public class ActorUpdateProperty<T> {
 
@@ -57,11 +60,27 @@ public class ActorUpdateProperty<T> {
 	}
 	
 	public boolean isRigidBody() {
-		return isClass(RigidBody.class);
+		return isClass(ActorUpdateProperties.ReplicatedRigidBody.class);
 	}
 	
-	public RigidBody getRigidBody() {
-		return (RigidBody) value;
+	public ReplicatedRigidBody getRigidBody() {
+		return (ActorUpdateProperties.ReplicatedRigidBody) value;
+	}
+	
+	public boolean isActiveActor() {
+		return isClass(ActorUpdateProperties.ActiveActor.class);
+	}
+	
+	public ActiveActor getActiveActor() {
+		return (ActorUpdateProperties.ActiveActor) value;
+	}
+	
+	public boolean isVector3() {
+		return isClass(Vector3.class);
+	}
+	
+	public Vector3 getVector3() {
+		return (Vector3) value;
 	}
 	
 }

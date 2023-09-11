@@ -4,7 +4,7 @@ import replaybot.data.RigidBody;
 
 public abstract class RigidBodyActor extends Actor {
 
-	private RigidBody rigidBody;
+	private ActorUpdateProperties.ReplicatedRigidBody rigidBody;
 	
 	public RigidBodyActor(int id) {
 		super(id);
@@ -12,13 +12,9 @@ public abstract class RigidBodyActor extends Actor {
 	
 	@Override
 	public void updateProperty(ActorUpdateProperty<?> property) {
-		if(property.getName() == "TAGame.RBActor_TA:ReplicatedRBState" && property.isRigidBody()) {
-			setRigidBody(property.getRigidBody());
+		if("TAGame.RBActor_TA:ReplicatedRBState".equals(property.getName()) && property.isRigidBody()) {
+			rigidBody = property.getRigidBody();
 		}
-	}
-	
-	private void setRigidBody(RigidBody rigidBody) {
-		this.rigidBody = rigidBody;
 	}
 	
 	public RigidBody getRigidBody() {

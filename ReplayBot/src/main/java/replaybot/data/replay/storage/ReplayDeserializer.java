@@ -20,8 +20,11 @@ import replaybot.data.RigidBody;
 import replaybot.data.replay.Replay;
 import replaybot.data.replay.ReplayFrame;
 import replaybot.data.replay.ReplayProperties;
+import replaybot.math.Rotation;
 import replaybot.math.Vector3;
+import replaybot.data.replay.actor.ActorProperties;
 import replaybot.data.replay.actor.ActorUpdate;
+import replaybot.data.replay.actor.ActorUpdateProperties;
 import replaybot.data.replay.actor.ActorUpdateProperty;
 
 public class ReplayDeserializer extends StdDeserializer<Replay> {
@@ -184,7 +187,7 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
 		
 		switch(name) {
 		case "TAGame.RBActor_TA:ReplicatedRBState":
-			property = new ActorUpdateProperty<RigidBody>(name, deserializeRigidBody(jp));
+			property = new ActorUpdateProperty<RigidBody>(name, deserializeReplicatedRigidBody(jp));
 			break;
 	   case "TAGame.CrowdManager_TA:GameEvent":
        case "TAGame.CrowdActor_TA:GameEvent":
@@ -205,8 +208,7 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
        case "TAGame.Car_TA:RumblePickups":
        case "TAGame.RumblePickups_TA:AttachedPickup":
        case "TAGame.SpecialPickup_Football_TA:WeldedBall":
-    	   jp.skipChildren();
-//    	   asp.Data = ActiveActor.Deserialize(br);
+    	   deserializeActiveActor(jp);
            break;
        case "TAGame.GameEvent_TA:ReplicatedStateIndex":
 //           asp.Data = br.ReadUInt32Max(140); // number is made up, I dont know the max yet // TODO: Revisit this. It might work well enough, but looks fishy
@@ -360,6 +362,7 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
             // The car component is active if (ReplicatedValue%2)!=0 
             // For now I am only adding that logic to the JSON serializer
 //            asp.Data = br.ReadByte();
+        	property = new ActorUpdateProperty<Byte>(name, jp.getByteValue());
             break;
         case "Engine.PlayerReplicationInfo:UniqueId":
 //            asp.Data = UniqueId.Deserialize(br, licenseeVersion, netVersion);
@@ -498,7 +501,8 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
 		return Optional.ofNullable(property);
 	}
 	
-	private RigidBody deserializeRigidBody(JsonParser jp) throws JsonParseException, IOException {
+	private ActorUpdateProperties.ReplicatedRigidBody deserializeReplicatedRigidBody(JsonParser jp) throws JsonParseException, IOException {
+		boolean sleeping = false;
 		Vector3 position = null;
 		Vector3 rotation = null;
 		Vector3 linearVelocity = null;
@@ -513,10 +517,29 @@ public class ReplayDeserializer extends StdDeserializer<Replay> {
 				linearVelocity = deserializeVector3(jp);
 			} else if(current == JsonToken.START_OBJECT && "AngularVelocity".equals(jp.getCurrentName())) {
 				angularVelocity = deserializeVector3(jp);
+			} else if((current == JsonToken.VALUE_TRUE || current == JsonToken.VALUE_FALSE)
+					&& "Sleeping".equals(jp.getCurrentName())) {
+				sleeping = jp.getBooleanValue();
 			}
 		}
 		
-		return new RigidBody(position, rotation, linearVelocity, angularVelocity);
+		return new ActorUpdateProperties.ReplicatedRigidBody(position, rotation, linearVelocity, angularVelocity, sleeping);
+	}
+	
+	public ActorUpdateProperties.ActiveActor deserializeActiveActor(JsonParser jp) throws JsonParseException, IOException {
+		boolean active = false;
+		int actorId = -1;
+		
+		for(; current != JsonToken.END_OBJECT; current = jp.nextToken()) {
+			if((current == JsonToken.VALUE_FALSE || current == JsonToken.VALUE_FALSE)
+				&& "Active".equals(jp.getCurrentName())) {
+				active = jp.getBooleanValue();
+			} else if(current == JsonToken.VALUE_NUMBER_INT&& "ActorId".equals(jp.getCurrentName())) {
+				actorId = jp.getIntValue();
+			} 
+		}
+		
+		return new ActorUpdateProperties.ActiveActor(active, actorId);
 	}
 
 }
