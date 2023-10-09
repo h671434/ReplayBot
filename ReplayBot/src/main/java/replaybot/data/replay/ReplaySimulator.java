@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import replaybot.data.DataPacket;
 import replaybot.data.replay.actor.Actor;
 import replaybot.data.replay.actor.ActorFactory;
 import replaybot.data.replay.actor.ActorUpdate;
@@ -59,27 +60,8 @@ public class ReplaySimulator {
 		}
 	}
 	
-	public BallActor getBallActor() {
-		Optional<BallActor> ball = getActorStream()
-				.filter(actor -> actor instanceof BallActor)
-				.map(actor -> { return (BallActor) actor; })
-				.findFirst();
-		
-		return ball.orElse(null);
-	}
-	
-	public List<CarActor> getCarActors() {
-		Stream<CarActor> cars = getActorStream().mapMulti((actor, consumer) -> {
-			if(actor instanceof CarActor) {
-				consumer.accept((CarActor) actor);
-			}
-		});
-		
-		return cars.toList();
-	}
-	
-	private Stream<Actor> getActorStream() {
-		return actorById.values().stream();
+	public DataPacket buildPacket() {
+		return null;
 	}
 	
 }

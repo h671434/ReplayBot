@@ -22,7 +22,6 @@ import replaybot.data.replay.ReplayFrame;
 import replaybot.data.replay.ReplayProperties;
 import replaybot.math.Rotation;
 import replaybot.math.Vector3;
-import replaybot.data.replay.actor.ActorProperties;
 import replaybot.data.replay.actor.ActorUpdate;
 import replaybot.data.replay.actor.ActorUpdateProperties;
 import replaybot.data.replay.actor.ActorUpdateProperty;
