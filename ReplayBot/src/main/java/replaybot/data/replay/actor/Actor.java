@@ -1,27 +1,34 @@
 package replaybot.data.replay.actor;
 
-import java.util.List;
+import replaybot.data.replay.attribute.ActiveActor;
+import replaybot.math.Rotator;
+import replaybot.math.Vector3;
 
-public abstract class Actor {
-
-	private final int id;
+public class Actor {
 	
-	public Actor(int id) {
-		this.id = id;
-	}
-	
-	public void applyUpdate(ActorUpdate update) {
-		if(!update.isUpdated()) {
-			throw new IllegalArgumentException("ActorUpdate is not of type Updated");
-		}
-		
-		update.getPropertyUpdates().forEach(this::updateProperty);
-	}
-	
-	public abstract void updateProperty(ActorUpdateProperty<?> property);
-	
-	public int getId() {
-		return id;
-	}
+    private boolean bBlockActors;
+    private boolean bCollideActors;
+    private boolean bCollideWorld;
+    private boolean bHardAttach;
+    private boolean bHidden;
+    private boolean bNetOwner;
+    private boolean bRootMotionFromInterpCurve;
+    private boolean bTearOff;
+    
+    private byte physics;
+    private byte remoteRole;
+    private byte replicatedCollisionType;
+    private byte role;
+    
+    private float drawScale;
+    
+    private ActiveActor instigator;
+    private ActiveActor owner;
+    
+    private Rotator relativeRotation;
+    private Rotator rotation;
+    
+    private Vector3 location;
+    private Vector3 relativeLocation;
 	
 }
