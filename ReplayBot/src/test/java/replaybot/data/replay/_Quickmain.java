@@ -49,7 +49,7 @@ public class _Quickmain {
 	private static void writeClass(String name, Set<String> vars) {
 		StringBuilder claz = new StringBuilder();
 		
-		claz.append("package replaybot.data.replay.gameobject;\n")
+		claz.append("package replaybot.replay.gameobject;\n")
 			.append("\n")
 			.append("public class " + name + " {\n")
 			.append("\n");

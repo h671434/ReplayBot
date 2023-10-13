@@ -14,8 +14,8 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import replaybot.data.replay.actor.ActorUpdate;
-import replaybot.data.replay.actor.ActorUpdateProperty;
+import replaybot.replay.actor.ActorUpdate;
+import replaybot.replay.actor.ActorUpdateProperty;
 
 class DeserializeReplayTest {
 
