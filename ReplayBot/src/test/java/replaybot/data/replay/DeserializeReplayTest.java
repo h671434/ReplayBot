@@ -14,12 +14,13 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import replaybot.replay.actor.ActorUpdate;
-import replaybot.replay.actor.ActorUpdateProperty;
+import replaybot.replay.Replay;
+import replaybot.replay.ReplayFrame;
+import replaybot.replay.replication.Replication;
 
 class DeserializeReplayTest {
 
-	private static final String PATH = "RocketLeagueReplayParser.Console.3.3.0/example.json";
+	private static final String PATH = "src/test/resources/replays/json/newex.json";
 	
 	@Test
 	void test() {
@@ -39,22 +40,29 @@ class DeserializeReplayTest {
 			e.printStackTrace();
 		}
 		
-		LinkedHashSet<String> hashSet = new LinkedHashSet<String>();
 		
-		for(int i = 0; i < r.amountOfFrames(); i++) {
-			for(int j = 0; j < r.getFrame(i).amountOfUpdatedActors(); j++) {
-				if(r.getFrame(i).getUpdatedActor(j).isNew()) {
-					ActorUpdate u = r.getFrame(i).getUpdatedActor(j);
-
-
-						hashSet.add(u.getActorId() + " " + u.getClassName());
-
-				}
-			}
+		List<ReplayFrame> frames = r.frames();
+		
+		for(int i = 0; i < frames.size(); i++) {
+			printFrame(frames.get(i));
 		}
-
-
-		hashSet.forEach(System.out::println);
+		System.out.println(frames.size());
+	}
+	
+	private void printFrame(ReplayFrame frame) {
+		StringBuilder str = new StringBuilder("Frame\n");
+		
+		str.append("\ttime: " + frame.time() + "\n");
+		str.append("\tdelta: " + frame.delta() + "\n");
+		str.append("\treplications: \n");
+		
+		List<Replication> reps = frame.replications();
+		
+		for(int i = 0; i < reps.size(); i++) {
+			str.append("\t\t" + reps.get(i).toString() + "\n");
+		}
+		
+		System.out.println(str.toString());
 	}
 
 }

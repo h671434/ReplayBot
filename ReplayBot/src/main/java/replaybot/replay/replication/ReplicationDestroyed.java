@@ -1,7 +1,5 @@
 package replaybot.replay.replication;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import replaybot.replay.property.CompressedWord;
 
 public record ReplicationDestroyed(

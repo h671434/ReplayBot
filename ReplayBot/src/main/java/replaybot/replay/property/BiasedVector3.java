@@ -8,8 +8,11 @@ public record BiasedVector3(
 		int bias, 
 		@JsonProperty("size") 
 		CompressedWord size, 
+		@JsonProperty("x") 
 		double x, 
+		@JsonProperty("y") 
 		double y, 
+		@JsonProperty("z") 
 		double z) {
 
 }

@@ -12,13 +12,13 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import replaybot.math.Vector3;
+import replaybot.replay.attribute.Attribute;
 import replaybot.replay.property.CompressedWord;
 import replaybot.replay.property.Initialization;
 import replaybot.replay.replication.Replication;
 import replaybot.replay.replication.ReplicationDestroyed;
 import replaybot.replay.replication.ReplicationSpawned;
 import replaybot.replay.replication.ReplicationUpdated;
-import replaybot.replay.replication.UpdatedAttribute;
 
 public class ReplicationDeserializer extends StdDeserializer<Replication> {
 	
@@ -38,9 +38,9 @@ public class ReplicationDeserializer extends StdDeserializer<Replication> {
 		}
 		
 		for(; currentToken != JsonToken.END_OBJECT; currentToken = jp.nextToken()) {
-			if("actor_id".equals(jp.getCurrentName())) {
+			if(currentToken == JsonToken.START_OBJECT && "actor_id".equals(jp.getCurrentName())) {
 				actorId = jp.readValueAs(CompressedWord.class);
-			} else if("value".equals(jp.getCurrentName())) {
+			} else if(currentToken == JsonToken.START_OBJECT && "value".equals(jp.getCurrentName())) {
 				replication = resolveSubtypeAndDeserialize(jp, actorId);
 			}
 		}
@@ -107,7 +107,7 @@ public class ReplicationDeserializer extends StdDeserializer<Replication> {
 	}
 	
 	private ReplicationUpdated deserializeAsUpdated(JsonParser jp, CompressedWord actorId) throws JsonParseException, IOException {
-		List<UpdatedAttribute<?>> updates = new ArrayList<>();
+		List<Attribute<?>> updates = new ArrayList<>();
 		
 		JsonToken currentToken = jp.getCurrentToken();
 				
@@ -117,7 +117,7 @@ public class ReplicationDeserializer extends StdDeserializer<Replication> {
 		
 		for(; currentToken != JsonToken.END_ARRAY; currentToken = jp.nextToken()) {
 			if(currentToken == JsonToken.START_OBJECT) {
-				updates.add(jp.readValueAs(UpdatedAttribute.class));
+				updates.add(jp.readValueAs(Attribute.class));
 			}
 		}
 		
