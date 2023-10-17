@@ -15,17 +15,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import replaybot.replay.Replay;
-import replaybot.replay.ReplayFrame;
-import replaybot.replay.replication.Replication;
+import replaybot.replay.model.Frame;
+import replaybot.replay.model.UpdatedAttribute;
+import replaybot.replay.storage.MixinModule;
 
 class DeserializeReplayTest {
 
-	private static final String PATH = "src/test/resources/replays/json/newex.json";
+	private static final String PATH = "src/test/resources/replays/ex.json";
 	
-	@Test
-	void test() {
+	public static void main(String[] args){
 		ObjectMapper mapper = new ObjectMapper();
 		JsonFactory factory = new JsonFactory();
+		
+		mapper.registerModule(new MixinModule());
 		
 		factory.setCodec(mapper);
 
@@ -41,7 +43,7 @@ class DeserializeReplayTest {
 		}
 		
 		
-		List<ReplayFrame> frames = r.frames();
+		List<Frame> frames = r.frames();
 		
 		for(int i = 0; i < frames.size(); i++) {
 			printFrame(frames.get(i));
@@ -49,17 +51,17 @@ class DeserializeReplayTest {
 		System.out.println(frames.size());
 	}
 	
-	private void printFrame(ReplayFrame frame) {
+	private static void printFrame(Frame frame) {
 		StringBuilder str = new StringBuilder("Frame\n");
 		
 		str.append("\ttime: " + frame.time() + "\n");
 		str.append("\tdelta: " + frame.delta() + "\n");
 		str.append("\treplications: \n");
 		
-		List<Replication> reps = frame.replications();
+		List<UpdatedAttribute> atts = frame.updatedActors();
 		
-		for(int i = 0; i < reps.size(); i++) {
-			str.append("\t\t" + reps.get(i).toString() + "\n");
+		for(int i = 0; i < atts.size(); i++) {
+			str.append("\t\t" + atts.get(i).toString() + "\n");
 		}
 		
 		System.out.println(str.toString());

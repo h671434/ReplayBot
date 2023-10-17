@@ -11,16 +11,18 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import replaybot.gui.BotGUI;
+import replaybot.math.Rotation;
+import replaybot.math.Vector3;
 import replaybot.math.Vector3;
 
 public class RigidBody {
 	
 	public final Vector3 location;
-	public final Vector3 rotation;
+	public final Rotation rotation;
 	public final Vector3 linearVelocity;
 	public final Vector3 angularVelocity;
 	
-	public RigidBody(Vector3 location, Vector3 rotation, Vector3 linearVelocity,
+	public RigidBody(Vector3 location, Rotation rotation, Vector3 linearVelocity,
 			Vector3 angularVelocity) {
 		this.location = location;
 		this.rotation = rotation;

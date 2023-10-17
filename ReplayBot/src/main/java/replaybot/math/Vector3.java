@@ -1,29 +1,60 @@
 package replaybot.math;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
-public class Vector3 {
+public class Vector3 extends Vector implements Rotation {
 
-	public final double x;
-	public final double y;
-	public final double z;
+	private final double x;
+	private final double y;
+	private final double z;
 	
 	public Vector3(double x, double y, double z) {
+		super(List.of(x, y, z));
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
 	public Vector3(rlbot.flat.Vector3 vec) {
-		this.x = vec.x();
-		this.y = vec.y();
-		this.z = vec.z();
+		this(vec.x(), vec.y(), vec.z());
 	}
 	
 	public Vector3(rlbot.flat.Rotator rot) {
-		this.x = rot.pitch();
-		this.y = rot.yaw();
-		this.z = rot.roll();
+		this(rot.pitch(), rot.yaw(), rot.roll());
+	}
+	
+	public Vector3(Vector3 other) {
+		this(other.x, other.y, other.z);
+	}
+
+	public double x() {
+		return x;
+	}
+
+	public double y() {
+		return y;
+	}
+
+	public double z() {
+		return z;
+	}
+
+	@Override
+	public Vector3 asEulerAngles() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Quaternion asQuaternion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Matrix3x3 asRotationMatrix() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

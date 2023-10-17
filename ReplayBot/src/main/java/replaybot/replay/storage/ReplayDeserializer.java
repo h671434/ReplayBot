@@ -1,78 +1,69 @@
 package replaybot.replay.storage;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import replaybot.replay.Replay;
-import replaybot.replay.ReplayFrame;
-import replaybot.replay.property.CompressedWord;
+import replaybot.replay.model.ClassIndex;
+import replaybot.replay.model.Frame;
+import replaybot.replay.model.NetCache;
 
 public class ReplayDeserializer extends StdDeserializer<Replay> {
 
 	protected ReplayDeserializer() {
 		super(Replay.class);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public Replay deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-		List<ReplayFrame> frames = null;
+		List<Frame> frames = null; 
+		List<String> objects = null;
+		List<String> names = null;
+		List<ClassIndex> classIndices = null;
+		List<NetCache> netCache = null;
 		
 		JsonToken currentToken = jp.getCurrentToken();
 		
 		if(currentToken != JsonToken.START_OBJECT) {
 			currentToken = jp.nextToken();
 		}
-		
+		System.out.println(jp.nextToken());
 		for(; currentToken != JsonToken.END_OBJECT; currentToken = jp.nextToken()) {
-			String fieldName = jp.getCurrentName();
+			String field = jp.getCurrentName();
 			
-			if(fieldName == null) {
-				continue;
-			}
-			switch(fieldName) {
-			case "content":
-			case "header":
-			case "body":
-				// Ignore to iterate over children
-				break;
-			case "frames":
-				frames = deserializeFrames(jp);
-				break;
-			default: 
+			if("network_frames".equals(field) && currentToken == JsonToken.START_OBJECT) {
+				currentToken = jp.nextValue();
+				frames = jp.readValueAs(new TypeReference<List<Frame>>() {});
+				currentToken = jp.nextToken();
+				
+			} else if("objects".equals(field) && currentToken == JsonToken.START_ARRAY) {
+				 netCache = jp.readValueAs(new TypeReference<List<String>>() {});
+				 
+			} else if("names".equals(field) && currentToken == JsonToken.START_ARRAY) {
+				 netCache = jp.readValueAs(new TypeReference<List<String>>() {});
+				 
+			} else if("class_indices".equals(field) && currentToken == JsonToken.START_ARRAY) {
+				 classIndices = jp.readValueAs(new TypeReference<List<ClassIndex>>() {});
+				
+			} else if("net_cache".equals(field) && currentToken == JsonToken.START_ARRAY) {
+				 netCache = jp.readValueAs(new TypeReference<List<NetCache>>() {});
+				 
+			} else if(currentToken == JsonToken.START_OBJECT || currentToken == JsonToken.START_ARRAY) {
 				jp.skipChildren();
 			}
 		}
-			
-		return new Replay(frames);
-	}
-	
-	public List<ReplayFrame> deserializeFrames(JsonParser jp) throws JsonParseException, IOException {
-		if(jp.getCurrentToken() != JsonToken.START_ARRAY) {
-			jp.nextToken();
-		}
 		
-		List<ReplayFrame> frames = new ArrayList<>();
-		
-		//jp.readValuesAs(ReplayFrame.class).forEachRemaining(frames::add);
-		
-		JsonToken currentToken = jp.getCurrentToken();
-		
-		for(; currentToken != JsonToken.END_ARRAY; currentToken = jp.nextToken()) {
-			if(currentToken == JsonToken.START_OBJECT) {
-				frames.add(jp.readValueAs(ReplayFrame.class));
-			}	
-		}
-		
-		return frames;
+		return new Replay(frames, objects, names, classIndices, netCache);
 	}
 
 }
