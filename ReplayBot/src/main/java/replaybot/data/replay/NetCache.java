@@ -1,4 +1,4 @@
-package replaybot.replay.model;
+package replaybot.data.replay;
 
 import java.util.List;
 

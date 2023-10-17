@@ -1,4 +1,4 @@
-package replaybot.replay.storage;
+package replaybot.data.storage;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,10 +13,10 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
-import replaybot.replay.Replay;
-import replaybot.replay.model.ClassIndex;
-import replaybot.replay.model.Frame;
-import replaybot.replay.model.NetCache;
+import replaybot.data.replay.ClassIndex;
+import replaybot.data.replay.Frame;
+import replaybot.data.replay.NetCache;
+import replaybot.data.replay.Replay;
 
 public class ReplayDeserializer extends StdDeserializer<Replay> {
 

@@ -1,4 +1,4 @@
-package replaybot.replay.storage;
+package replaybot.data.storage;
 
 
 import java.io.IOException;
@@ -16,12 +16,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import replaybot.data.RigidBody;
+import replaybot.data.attribute.RigidBody;
+import replaybot.data.replay.Trajectory;
 import replaybot.math.Quaternion;
 import replaybot.math.Rotation;
 import replaybot.math.Vector;
 import replaybot.math.Vector3;
-import replaybot.replay.model.Trajectory;
 
 public class MixinModule extends SimpleModule {
 	

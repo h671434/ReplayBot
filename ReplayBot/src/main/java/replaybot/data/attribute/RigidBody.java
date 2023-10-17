@@ -1,4 +1,4 @@
-package replaybot.data;
+package replaybot.data.attribute;
 
 import java.io.IOException;
 import java.net.URL;
@@ -17,10 +17,10 @@ import replaybot.math.Vector3;
 
 public class RigidBody {
 	
-	public final Vector3 location;
-	public final Rotation rotation;
-	public final Vector3 linearVelocity;
-	public final Vector3 angularVelocity;
+	private final Vector3 location;
+	private final Rotation rotation;
+	private final Vector3 linearVelocity;
+	private final Vector3 angularVelocity;
 	
 	public RigidBody(Vector3 location, Rotation rotation, Vector3 linearVelocity,
 			Vector3 angularVelocity) {
@@ -28,13 +28,6 @@ public class RigidBody {
 		this.rotation = rotation;
 		this.linearVelocity = linearVelocity;
 		this.angularVelocity = angularVelocity;
-	}
-	
-	public RigidBody(rlbot.flat.Physics physics) {
-		this.location = new Vector3(physics.location());
-		this.rotation = new Vector3(physics.rotation());
-		this.linearVelocity = new Vector3(physics.velocity());
-		this.angularVelocity = new Vector3(physics.angularVelocity());
 	}
 	
 }

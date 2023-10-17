@@ -1,14 +1,11 @@
-package replaybot.replay;
+package replaybot.data.replay;
 
 import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import replaybot.replay.model.ClassIndex;
-import replaybot.replay.model.Frame;
-import replaybot.replay.model.NetCache;
-import replaybot.replay.storage.AttributeDeserializer;
-import replaybot.replay.storage.ReplayDeserializer;
+import replaybot.data.storage.AttributeDeserializer;
+import replaybot.data.storage.ReplayDeserializer;
 
 @JsonDeserialize(using = ReplayDeserializer.class)
 public record Replay(

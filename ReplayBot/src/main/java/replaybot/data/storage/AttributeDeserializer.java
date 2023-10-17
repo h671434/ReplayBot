@@ -1,4 +1,4 @@
-package replaybot.replay.storage;
+package replaybot.data.storage;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -13,7 +13,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
-import replaybot.replay.attribute.Attribute;
+import replaybot.data.attribute.Attribute;
 
 public class AttributeDeserializer extends StdDeserializer<Attribute> {
 	

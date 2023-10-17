@@ -1,4 +1,4 @@
-package replaybot.replay.model;
+package replaybot.data.replay;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

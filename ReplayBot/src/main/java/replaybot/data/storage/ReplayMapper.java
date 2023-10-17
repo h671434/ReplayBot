@@ -1,4 +1,4 @@
-package replaybot.replay.storage;
+package replaybot.data.storage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;

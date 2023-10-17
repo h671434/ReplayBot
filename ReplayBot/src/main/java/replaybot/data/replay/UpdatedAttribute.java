@@ -1,8 +1,8 @@
-package replaybot.replay.model;
+package replaybot.data.replay;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import replaybot.replay.attribute.Attribute;
+import replaybot.data.attribute.Attribute;
 
 public record UpdatedAttribute(
 		@JsonProperty("actor_id") int actorId,
