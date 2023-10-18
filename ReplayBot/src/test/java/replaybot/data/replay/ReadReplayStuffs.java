@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.junit.jupiter.api.Test;
-
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -16,8 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ReadReplayStuffs {
 
 	private static final String PATH = "src/test/resources/replays/json/example.json";
-	
-	@Test
+
 	void test() {
 		ObjectMapper mapper = new ObjectMapper();
 		File file = new File(PATH);

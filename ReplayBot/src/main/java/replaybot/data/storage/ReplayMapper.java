@@ -1,7 +1,6 @@
 package replaybot.data.storage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 
 public class ReplayMapper {
 
@@ -9,12 +8,9 @@ public class ReplayMapper {
 	
 	public ReplayMapper() {
 		mapper = new ObjectMapper();
-		
-		init();
-	}
-	
-	private void init() {
-		mapper.registerModule(new MixinModule());
+		mapper.registerModule(new MathModule());
+		mapper.registerModule(new ReplayModule());
+		mapper.registerModule(new AttributeModule());
 	}
 	
 }

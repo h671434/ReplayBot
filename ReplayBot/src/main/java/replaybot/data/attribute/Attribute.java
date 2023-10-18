@@ -1,24 +1,24 @@
 package replaybot.data.attribute;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-import replaybot.data.storage.AttributeDeserializer;
-import replaybot.math.Rotation;
-
-@JsonDeserialize(using = AttributeDeserializer.class)
+/**
+ * Interface to be used similar to Rust enums using pattern matching:
+ * 
+ * 		if(attribute instanceof Attribute.Byte byte) {
+ * 			doSomethingWithByte(byte);
+ * 		}
+ */
 public sealed interface Attribute {
 	
-	record ByteAttribute(byte value) implements Attribute {}
-	record BooleanAttribute(boolean value) implements Attribute {}
-	record IntAttribute(int value) implements Attribute {}
-	record FloatAttribute(float value) implements Attribute {}
-	record StringAttribute(String value) implements Attribute {}
-	record RotationAttribute(Rotation value) implements Attribute {}
-	record ActiveActorAttribute(ActiveActor value) implements Attribute {}
-	record RigidBodyAttribute(RigidBody value) implements Attribute {}
-	record DemolishAttribute(Demolish value) implements Attribute {}
+	record Byte(byte value) implements Attribute {}
+	record Boolean(boolean value) implements Attribute {}
+	record Int(int value) implements Attribute {}
+	record Float(float value) implements Attribute {}
+	record String(java.lang.String value) implements Attribute {}
+	record Rotation(replaybot.math.Rotation value) implements Attribute {}
+	record ActiveActor(replaybot.data.attribute.ActiveActor value) implements Attribute {}
+	record RigidBody(replaybot.data.attribute.RigidBody value) implements Attribute {}
+	record Demolish(replaybot.data.attribute.Demolish value) implements Attribute {}
 	
-	record NotImplementedAttribute() implements Attribute {}
+	record NotImplemented() implements Attribute {}
 	
 }

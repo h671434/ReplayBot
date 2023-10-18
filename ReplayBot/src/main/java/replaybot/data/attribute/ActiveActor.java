@@ -1,9 +1,21 @@
 package replaybot.data.attribute;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+public class ActiveActor {
 
-public record ActiveActor(
-		@JsonProperty("active") boolean active,
-		@JsonProperty("actor") int actorId) {
+	private final boolean active;
+	private final int actorId;
+	
+	public ActiveActor(boolean active, int actorId) {
+		this.active = active;
+		this.actorId = actorId;
+	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public int getActorId() {
+		return actorId;
+	}
+	
 }

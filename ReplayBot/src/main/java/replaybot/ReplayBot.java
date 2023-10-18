@@ -1,7 +1,6 @@
 package replaybot;
 
 import replaybot.data.ControlsOutput;
-import replaybot.data.DataPacket;
 import rlbot.Bot;
 import rlbot.ControllerState;
 import rlbot.flat.GameTickPacket;
@@ -20,7 +19,7 @@ public class ReplayBot implements Bot {
             return new ControlsOutput();
         }
 
-        DataPacket data = new DataPacket(packet, playerIndex);
+        // TODO
 
         return new ControlsOutput();
     }

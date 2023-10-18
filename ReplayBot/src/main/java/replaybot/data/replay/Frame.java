@@ -2,14 +2,21 @@ package replaybot.data.replay;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-public record Frame (
-		@JsonProperty("time") double time, 
-		@JsonProperty("delta") double delta, 
-		@JsonProperty("new_actors") List<NewActor> newActors,
-		@JsonProperty("updated_actors") List<UpdatedAttribute> updatedActors,
-		@JsonProperty("deleted_actors") List<Integer> deletedActors) {
+public class Frame {
+	
+	private final double time;
+	private final double delta;
+	private final List<NewActor> newActors;
+	private final List<UpdatedAttribute> updatedActors;
+	private final List<Integer> deletedActors;
+	
+	public Frame(double time, double delta, List<NewActor> newActors, List<UpdatedAttribute> updatedActors,
+			List<Integer> deletedActors) {
+		this.time = time;
+		this.delta = delta;
+		this.newActors = newActors;
+		this.updatedActors = updatedActors;
+		this.deletedActors = deletedActors;
+	}
 	
 }

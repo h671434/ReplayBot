@@ -1,18 +1,6 @@
 package replaybot.data.attribute;
 
-import java.io.IOException;
-import java.net.URL;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import replaybot.gui.BotGUI;
 import replaybot.math.Rotation;
-import replaybot.math.Vector3;
 import replaybot.math.Vector3;
 
 public class RigidBody {
@@ -28,6 +16,22 @@ public class RigidBody {
 		this.rotation = rotation;
 		this.linearVelocity = linearVelocity;
 		this.angularVelocity = angularVelocity;
+	}
+
+	public Vector3 getLocation() {
+		return location;
+	}
+
+	public Rotation getRotation() {
+		return rotation;
+	}
+
+	public Vector3 getLinearVelocity() {
+		return linearVelocity;
+	}
+
+	public Vector3 getAngularVelocity() {
+		return angularVelocity;
 	}
 	
 }
