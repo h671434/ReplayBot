@@ -63,6 +63,10 @@ public class Replay {
 	public HeaderProperties getProperties() {
 		return properties;
 	}
+	
+	public NetworkFrames getFrames() {
+		return frames;
+	}
 
 	public List<TickMark> getTickMarks() {
 		return tickMarks;

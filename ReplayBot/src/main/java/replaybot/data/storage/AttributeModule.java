@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import replaybot.data.attribute.ActiveActor;
 import replaybot.data.attribute.Attribute;
-import replaybot.data.attribute.Demolish;
 import replaybot.data.attribute.RigidBody;
 import replaybot.math.Quaternion;
 import replaybot.math.Rotation;
@@ -28,7 +27,6 @@ public class AttributeModule extends SimpleModule {
 		addDeserializer(Attribute.class, new AttributeDeserializer());
 		setMixInAnnotation(ActiveActor.class, ActiveActorMixin.class);
 		setMixInAnnotation(RigidBody.class, RigidBodyMixin.class);
-		setMixInAnnotation(Demolish.class, DemolishMixin.class);
 	}
 	
 	private static class AttributeDeserializer extends StdDeserializer<Attribute> {
@@ -54,7 +52,6 @@ public class AttributeModule extends SimpleModule {
 			case "Rotation" -> new Attribute.Rotation(p.readValueAs(Rotation.class));
 			case "ActiveActor" -> new Attribute.ActiveActor(p.readValueAs(ActiveActor.class)); 
 			case "RigidBody" -> new Attribute.RigidBody(p.readValueAs(RigidBody.class));
-			case "Demolish" -> new Attribute.Demolish(p.readValueAs(Demolish.class));
 			default -> new Attribute.NotImplemented();
 			};
 			
@@ -89,24 +86,6 @@ public class AttributeModule extends SimpleModule {
 				Vector3 linearValocity,
 				@JsonProperty("angular_velocity")
 				Vector3 angularVelocity) {
-		}
-	}
-	
-	private static abstract class DemolishMixin {
-		@JsonCreator
-		public DemolishMixin(
-				@JsonProperty("attacker_flag")
-				boolean attackerFlag, 
-				@JsonProperty("attacker")
-				int attackerActorId, 
-				@JsonProperty("victim_flag")
-				boolean victimFlag, 
-				@JsonProperty("victim")
-				int victimActorId,
-				@JsonProperty("attack_velocity")
-				Vector3 attackVelocity, 
-				@JsonProperty("victim_velocity")
-				Vector3 victimVelocity) {
 		}
 	}
 	

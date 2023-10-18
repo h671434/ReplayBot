@@ -26,4 +26,8 @@ public class NetworkFrames implements Iterator<Frame> {
 		return nextFrame < frames.size(); 
 	}
 	
+	public List<Frame> getFrames() {
+		return  frames;
+	}
+	
 }

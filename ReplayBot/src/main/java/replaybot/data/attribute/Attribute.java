@@ -17,7 +17,6 @@ public sealed interface Attribute {
 	record Rotation(replaybot.math.Rotation value) implements Attribute {}
 	record ActiveActor(replaybot.data.attribute.ActiveActor value) implements Attribute {}
 	record RigidBody(replaybot.data.attribute.RigidBody value) implements Attribute {}
-	record Demolish(replaybot.data.attribute.Demolish value) implements Attribute {}
 	
 	record NotImplemented() implements Attribute {}
 	

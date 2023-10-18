@@ -69,7 +69,22 @@ public class ReplayMapper {
 			cache.getProperties().forEach(prop -> {
 				System.out.println("\t" + prop.getObjectIndex() + " " + objects.get(prop.getObjectIndex()));
 			});
+			
+
 		}
+		Map<Integer, String> stuff = new HashMap<>();
+		r.getFrames().getFrames().forEach(fr -> {
+			fr.getUpdated().forEach(u -> {
+				int d = u.getObjectId();
+				stuff.put(d, objects.get(d));
+			});
+		});
+		
+		stuff.forEach((e, d) -> {
+			System.out.println(e + " " + d);
+		}); 
+		
+		System.out.println(stuff.size());
 		
 		
 	}

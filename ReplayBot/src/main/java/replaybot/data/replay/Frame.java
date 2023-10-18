@@ -41,4 +41,8 @@ public class Frame {
 		return delta;
 	}
 	
+	public List<UpdatedAttribute> getUpdated() {
+		return updatedActors;
+	}
+	
 }

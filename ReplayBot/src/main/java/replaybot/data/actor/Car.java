@@ -1,5 +1,5 @@
 package replaybot.data.actor;
 
-public abstract class Actor {
+public class Car {
 
 }
