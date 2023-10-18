@@ -16,4 +16,20 @@ public class UpdatedAttribute {
 		this.attribute = attribute;
 	}
 
+	public int getActorId() {
+		return actorId;
+	}
+
+	public int getStreamId() {
+		return streamId;
+	}
+
+	public int getObjectId() {
+		return objectId;
+	}
+
+	public Attribute getAttribute() {
+		return attribute;
+	}
+
 }

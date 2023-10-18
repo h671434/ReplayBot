@@ -1,8 +1,10 @@
 package replaybot.data.storage;
 
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -12,9 +14,11 @@ import replaybot.data.replay.CacheProperty;
 import replaybot.data.replay.ClassIndex;
 import replaybot.data.replay.ClassNetCache;
 import replaybot.data.replay.Frame;
+import replaybot.data.replay.HeaderProperties;
 import replaybot.data.replay.NetworkFrames;
 import replaybot.data.replay.NewActor;
 import replaybot.data.replay.Replay;
+import replaybot.data.replay.TickMark;
 import replaybot.data.replay.Trajectory;
 import replaybot.data.replay.UpdatedAttribute;
 import replaybot.math.Rotation;
@@ -25,23 +29,29 @@ public class ReplayModule extends SimpleModule {
 
 	public ReplayModule() {
 		super("ReplayModule");
-		setMixInAnnotation(Replay.class, ReplayMixin.class);
-		setMixInAnnotation(NetworkFrames.class, NetworkFramesMixin.class);
-		setMixInAnnotation(Frame.class, FrameMixin.class);
-		setMixInAnnotation(NewActor.class, NewActorMixin.class);
-		setMixInAnnotation(Trajectory.class, TrajectoryMixin.class);
-		setMixInAnnotation(UpdatedAttribute.class, UpdatedAttributeMixin.class);
-		setMixInAnnotation(ClassIndex.class, ClassIndexMixin.class);
-		setMixInAnnotation(ClassNetCache.class, ClassNetCacheMixin.class);
-		setMixInAnnotation(CacheProperty.class, CachePropertyMixin.class);
+		setMixInAnnotation(Replay.class, ReplayMixIn.class);
+		setMixInAnnotation(HeaderProperties.class, HeaderPropertiesMixIn.class);
+		setMixInAnnotation(NetworkFrames.class, NetworkFramesMixIn.class);
+		setMixInAnnotation(Frame.class, FrameMixIn.class);
+		setMixInAnnotation(NewActor.class, NewActorMixIn.class);
+		setMixInAnnotation(Trajectory.class, TrajectoryMixIn.class);
+		setMixInAnnotation(UpdatedAttribute.class, UpdatedAttributeMixIn.class);
+		setMixInAnnotation(TickMark.class, TickMarkMixIn.class);
+		setMixInAnnotation(ClassIndex.class, ClassIndexMixIn.class);
+		setMixInAnnotation(ClassNetCache.class, ClassNetCacheMixIn.class);
+		setMixInAnnotation(CacheProperty.class, CachePropertyMixIn.class);
 	}
 	
 	@JsonIgnoreProperties(ignoreUnknown = true)
-	private static abstract class ReplayMixin {
+	private static abstract class ReplayMixIn {
 		@JsonCreator
-		public ReplayMixin(
+		public ReplayMixIn(
+				@JsonProperty("properties")
+				HeaderProperties properties,
 				@JsonProperty("network_frames")
 				NetworkFrames frames, 
+				@JsonProperty("tick_marks")
+				List<TickMark> tickMarks, 
 				@JsonProperty("objects")
 				List<String> objects, 
 				@JsonProperty("names")
@@ -53,17 +63,39 @@ public class ReplayModule extends SimpleModule {
 		}
 	}
 	
-	private static abstract class NetworkFramesMixin {
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	private static abstract class HeaderPropertiesMixIn {
 		@JsonCreator
-		public NetworkFramesMixin(
+		public HeaderPropertiesMixIn(
+				@JsonProperty("TeamSize")
+				int teamSize, 
+				@JsonProperty("Team0Score")
+				int team0Score, 
+				@JsonProperty("Team1Score")
+				int team1Score, 
+				@JsonProperty("ReplayName")
+				String replayName, 
+				@JsonProperty("Id")
+				String id, 
+				@JsonProperty("Date")
+				@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH-mm-ss")
+				Date date,
+				@JsonProperty("NumFrames")
+				int numFrames) {
+		}
+	}
+	
+	private static abstract class NetworkFramesMixIn {
+		@JsonCreator
+		public NetworkFramesMixIn(
 				@JsonProperty("frames")
 				List<Frame> frames) {
 		}
 	}
 	
-	private static abstract class FrameMixin {
+	private static abstract class FrameMixIn {
 		@JsonCreator
-		public FrameMixin(
+		public FrameMixIn(
 				@JsonProperty("time")
 				double time, 
 				@JsonProperty("delta")
@@ -77,23 +109,23 @@ public class ReplayModule extends SimpleModule {
 		}
 	}
 	
-	private static abstract class NewActorMixin {
+	private static abstract class NewActorMixIn {
 		@JsonCreator
-		public NewActorMixin(
+		public NewActorMixIn(
 				@JsonProperty("actor_id")
 				int actorId, 
 				@JsonProperty("name_id")
 				int nameId, 
 				@JsonProperty("object_id")
-				int objectid, 
+				int objectId, 
 				@JsonProperty("initial_trajectory")
 				Trajectory initialTrajectory) {
 		}
 	}
 	
-	private static abstract class TrajectoryMixin {
+	private static abstract class TrajectoryMixIn {
 		@JsonCreator
-		public TrajectoryMixin(
+		public TrajectoryMixIn(
 				@JsonProperty("location")
 				Vector3 location,
 				@JsonProperty("rotation")
@@ -101,9 +133,9 @@ public class ReplayModule extends SimpleModule {
 		}
 	}
 	
-	private static abstract class UpdatedAttributeMixin {
+	private static abstract class UpdatedAttributeMixIn {
 		@JsonCreator
-		public UpdatedAttributeMixin(
+		public UpdatedAttributeMixIn(
 				@JsonProperty("actor_id")
 				int actorId, 
 				@JsonProperty("stream_id")
@@ -115,9 +147,19 @@ public class ReplayModule extends SimpleModule {
 		}
 	}
 	
-	private static abstract class ClassIndexMixin {
+	private static abstract class TickMarkMixIn {
 		@JsonCreator
-		public ClassIndexMixin(
+		public TickMarkMixIn(
+				@JsonProperty("description")
+				String description,
+				@JsonProperty("frame")
+				int frame) {
+		}
+	}
+	
+	private static abstract class ClassIndexMixIn {
+		@JsonCreator
+		public ClassIndexMixIn(
 				@JsonProperty("class")
 				String className,
 				@JsonProperty("index")
@@ -125,9 +167,9 @@ public class ReplayModule extends SimpleModule {
 		}
 	}
 		
-	private static abstract class ClassNetCacheMixin {
+	private static abstract class ClassNetCacheMixIn {
 		@JsonCreator
-		public ClassNetCacheMixin(
+		public ClassNetCacheMixIn(
 				@JsonProperty("object_ind")
 				int objectIndex,
 				@JsonProperty("parent_id")
@@ -139,9 +181,9 @@ public class ReplayModule extends SimpleModule {
 		}
 	}
 	
-	private static abstract class CachePropertyMixin {
+	private static abstract class CachePropertyMixIn {
 		@JsonCreator
-		public CachePropertyMixin(
+		public CachePropertyMixIn(
 				@JsonProperty("object_ind")
 				int objectIndex,
 				@JsonProperty("stream_id")

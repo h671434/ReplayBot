@@ -1,9 +1,15 @@
 package replaybot.math;
 
+import rlbot.flat.Rotator;
+
 public class RotationVector extends Vector3 implements Rotation {
 	
 	public RotationVector(double pitch, double yaw, double roll) {
 		super(pitch, yaw, roll);
+	}
+	
+	public RotationVector(Rotator rot) {
+		this(rot.pitch(), rot.yaw(), rot.roll());
 	}
 	
 	public double pitch() {
@@ -16,10 +22,6 @@ public class RotationVector extends Vector3 implements Rotation {
 	
 	public double roll() {
 		return z();
-	}
-	
-	public RotationVector(rlbot.flat.Rotator rot) {
-		this(rot.pitch(), rot.yaw(), rot.roll());
 	}
 
 	@Override

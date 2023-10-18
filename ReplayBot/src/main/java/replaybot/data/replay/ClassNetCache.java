@@ -16,4 +16,20 @@ public class ClassNetCache {
 		this.properties = properties;
 	}
 
+	public int getObjectIndex() {
+		return objectIndex;
+	}
+
+	public int getParentId() {
+		return parentId;
+	}
+
+	public int getCacheId() {
+		return cacheId;
+	}
+
+	public List<CacheProperty> getProperties() {
+		return properties;
+	}
+
 }

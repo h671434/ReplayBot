@@ -9,5 +9,13 @@ public class CacheProperty {
 		this.objectIndex = objectIndex;
 		this.streamId = streamId;
 	}
+
+	public int getObjectIndex() {
+		return objectIndex;
+	}
+
+	public int getStreamId() {
+		return streamId;
+	}
 	
 }

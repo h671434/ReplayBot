@@ -8,11 +8,13 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import replaybot.data.replay.Replay;
 import replaybot.data.storage.AttributeModule;
 import replaybot.data.storage.MathModule;
 import replaybot.data.storage.ReplayModule;
 
-class DeserializeReplayTest {
+public class DeserializeReplayTest {
 
 	private static final String PATH = "src/test/resources/replays/ex.json";
 	
