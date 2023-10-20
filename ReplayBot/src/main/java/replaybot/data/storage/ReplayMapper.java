@@ -5,13 +5,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import replaybot.data.replay.ClassNetCache;
 import replaybot.data.replay.Replay;
 
 public class ReplayMapper {
@@ -52,27 +50,8 @@ public class ReplayMapper {
 		}
 		
 		List<String> objects = r.getObjects();
-		List<ClassNetCache> netcache = r.getNetCache();
-		
-		objects.stream().filter(s -> s.contains("Arche")).forEach(System.out::println);;
-		
-		for(int i = 0; i < netcache.size(); i++) {
-			ClassNetCache cache = netcache.get(i);
-
-			int obind = cache.getObjectIndex();
-			String ob = objects.get(cache.getObjectIndex());
-			int cid = cache.getCacheId();
-			int pid = cache.getParentId();
-			
-			
-			System.out.println(cid + " " + ob + " -> " + pid);
-			cache.getProperties().forEach(prop -> {
-				System.out.println("\t" + prop.getObjectIndex() + " " + objects.get(prop.getObjectIndex()));
-			});
-			
-
-		}
 		Map<Integer, String> stuff = new HashMap<>();
+		
 		r.getFrames().getFrames().forEach(fr -> {
 			fr.getUpdated().forEach(u -> {
 				int d = u.getObjectId();

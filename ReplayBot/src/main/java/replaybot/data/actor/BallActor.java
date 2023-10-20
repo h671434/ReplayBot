@@ -1,5 +1,5 @@
 package replaybot.data.actor;
 
-public class Ball {
+public class BallActor {
 
 }

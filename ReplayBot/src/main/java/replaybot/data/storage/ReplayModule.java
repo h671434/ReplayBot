@@ -37,9 +37,6 @@ public class ReplayModule extends SimpleModule {
 		setMixInAnnotation(Trajectory.class, TrajectoryMixIn.class);
 		setMixInAnnotation(UpdatedAttribute.class, UpdatedAttributeMixIn.class);
 		setMixInAnnotation(TickMark.class, TickMarkMixIn.class);
-		setMixInAnnotation(ClassIndex.class, ClassIndexMixIn.class);
-		setMixInAnnotation(ClassNetCache.class, ClassNetCacheMixIn.class);
-		setMixInAnnotation(CacheProperty.class, CachePropertyMixIn.class);
 	}
 	
 	@JsonIgnoreProperties(ignoreUnknown = true)
@@ -53,13 +50,7 @@ public class ReplayModule extends SimpleModule {
 				@JsonProperty("tick_marks")
 				List<TickMark> tickMarks, 
 				@JsonProperty("objects")
-				List<String> objects, 
-				@JsonProperty("names")
-				List<String> names, 
-				@JsonProperty("class_indices")
-				List<ClassIndex> classIndices,
-				@JsonProperty("net_cache")
-				List<ClassNetCache> netCache) {
+				List<String> objects) {
 		}
 	}
 	
@@ -154,40 +145,6 @@ public class ReplayModule extends SimpleModule {
 				String description,
 				@JsonProperty("frame")
 				int frame) {
-		}
-	}
-	
-	private static abstract class ClassIndexMixIn {
-		@JsonCreator
-		public ClassIndexMixIn(
-				@JsonProperty("class")
-				String className,
-				@JsonProperty("index")
-				int index) {
-		}
-	}
-		
-	private static abstract class ClassNetCacheMixIn {
-		@JsonCreator
-		public ClassNetCacheMixIn(
-				@JsonProperty("object_ind")
-				int objectIndex,
-				@JsonProperty("parent_id")
-				int parentId, 
-				@JsonProperty("cache_id")
-				int cacheId, 
-				@JsonProperty("properties")
-				List<CacheProperty> properties) {
-		}
-	}
-	
-	private static abstract class CachePropertyMixIn {
-		@JsonCreator
-		public CachePropertyMixIn(
-				@JsonProperty("object_ind")
-				int objectIndex,
-				@JsonProperty("stream_id")
-				int streamId) {
 		}
 	}
 	

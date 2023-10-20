@@ -1,6 +1,8 @@
 package replaybot.math;
 
 public class Vector3 {
+	
+	public static final Vector3 ZERO = new Vector3(0, 0, 0);
 
 	private final double x;
 	private final double y;

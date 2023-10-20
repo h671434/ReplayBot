@@ -1,5 +1,6 @@
 package replaybot.data.attribute;
 
+import replaybot.data.replay.Trajectory;
 import replaybot.math.Rotation;
 import replaybot.math.Vector3;
 
@@ -16,6 +17,13 @@ public class RigidBody {
 		this.rotation = rotation;
 		this.linearVelocity = linearVelocity;
 		this.angularVelocity = angularVelocity;
+	}
+	
+	public RigidBody(Trajectory initialTrajectory) {
+		this.location = initialTrajectory.getLocation();
+		this.rotation = initialTrajectory.getRotation();
+		this.linearVelocity = Vector3.ZERO;
+		this.angularVelocity = Vector3.ZERO;
 	}
 
 	public Vector3 getLocation() {

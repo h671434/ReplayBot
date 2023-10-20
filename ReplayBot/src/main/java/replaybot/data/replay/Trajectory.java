@@ -13,4 +13,12 @@ public class Trajectory {
 		this.rotation = rotation;
 	}
 
+	public Vector3 getLocation() {
+		return location;
+	}
+	
+	public Rotation getRotation() {
+		return rotation;
+	}
+	
 }
