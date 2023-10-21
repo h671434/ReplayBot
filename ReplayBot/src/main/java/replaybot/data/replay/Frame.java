@@ -31,7 +31,6 @@ public class Frame {
 	public void processDeletedActors(Consumer<Integer> process) {
 		deletedActors.forEach(process);
 	}
-	
 
 	public double getTime() {
 		return time;

@@ -10,11 +10,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import replaybot.data.attribute.Attribute;
-import replaybot.data.replay.CacheProperty;
-import replaybot.data.replay.ClassIndex;
-import replaybot.data.replay.ClassNetCache;
 import replaybot.data.replay.Frame;
-import replaybot.data.replay.HeaderProperties;
+import replaybot.data.replay.ReplayProperties;
 import replaybot.data.replay.NetworkFrames;
 import replaybot.data.replay.NewActor;
 import replaybot.data.replay.Replay;
@@ -30,7 +27,7 @@ public class ReplayModule extends SimpleModule {
 	public ReplayModule() {
 		super("ReplayModule");
 		setMixInAnnotation(Replay.class, ReplayMixIn.class);
-		setMixInAnnotation(HeaderProperties.class, HeaderPropertiesMixIn.class);
+		setMixInAnnotation(ReplayProperties.class, ReplayPropertiesMixIn.class);
 		setMixInAnnotation(NetworkFrames.class, NetworkFramesMixIn.class);
 		setMixInAnnotation(Frame.class, FrameMixIn.class);
 		setMixInAnnotation(NewActor.class, NewActorMixIn.class);
@@ -44,7 +41,7 @@ public class ReplayModule extends SimpleModule {
 		@JsonCreator
 		public ReplayMixIn(
 				@JsonProperty("properties")
-				HeaderProperties properties,
+				ReplayProperties properties,
 				@JsonProperty("network_frames")
 				NetworkFrames frames, 
 				@JsonProperty("tick_marks")
@@ -55,9 +52,9 @@ public class ReplayModule extends SimpleModule {
 	}
 	
 	@JsonIgnoreProperties(ignoreUnknown = true)
-	private static abstract class HeaderPropertiesMixIn {
+	private static abstract class ReplayPropertiesMixIn {
 		@JsonCreator
-		public HeaderPropertiesMixIn(
+		public ReplayPropertiesMixIn(
 				@JsonProperty("TeamSize")
 				int teamSize, 
 				@JsonProperty("Team0Score")

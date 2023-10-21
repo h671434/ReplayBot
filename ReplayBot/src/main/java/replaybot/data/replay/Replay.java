@@ -4,20 +4,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import replaybot.data.actor.Actor;
 
 public class Replay {
 	
-	private final HeaderProperties properties;
+	private final ReplayProperties properties;
 	private final NetworkFrames frames;
 	private final List<TickMark> tickMarks;
 	private final List<String> objects;
 	 
 	private Map<Integer, Actor> actorsById = new HashMap<>();
 	
-	public Replay(HeaderProperties properties, NetworkFrames frames, List<TickMark> tickMarks, List<String> objects) {
+	public Replay(ReplayProperties properties, NetworkFrames frames, List<TickMark> tickMarks, List<String> objects) {
 		this.properties = properties;
 		this.frames = frames;
 		this.tickMarks = tickMarks;
@@ -40,27 +38,21 @@ public class Replay {
 	
 	public void updateActor(UpdatedAttribute data) {
 		Actor actor = actorsById.get(data.getActorId());
+		String field = objects.get(data.getObjectId());
 		
+		actor.setField(field, data.getAttribute());
 	}
 	
 	public void deleteActor(int actorId)  {
 		actorsById.remove(actorId);
 	}
 
-	public HeaderProperties getProperties() {
+	public ReplayProperties getProperties() {
 		return properties;
-	}
-	
-	public NetworkFrames getFrames() {
-		return frames;
 	}
 
 	public List<TickMark> getTickMarks() {
 		return tickMarks;
-	}
-
-	public List<String> getObjects() {
-		return objects;
 	}
 	
 }

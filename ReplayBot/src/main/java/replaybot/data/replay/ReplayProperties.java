@@ -2,7 +2,7 @@ package replaybot.data.replay;
 
 import java.util.Date;
 
-public class HeaderProperties {
+public class ReplayProperties {
 
 	private final int teamSize;
 	private final int team0Score;
@@ -12,7 +12,7 @@ public class HeaderProperties {
 	private final Date date;
 	private final int numFrames;
 
-	public HeaderProperties(int teamSize, int team0Score, int team1Score, String replayName, String id, Date date,
+	public ReplayProperties(int teamSize, int team0Score, int team1Score, String replayName, String id, Date date,
 			int numFrames) {
 		this.teamSize = teamSize;
 		this.team0Score = team0Score;

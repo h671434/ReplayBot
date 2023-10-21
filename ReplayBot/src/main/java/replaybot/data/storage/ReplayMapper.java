@@ -49,22 +49,6 @@ public class ReplayMapper {
 			e.printStackTrace();
 		}
 		
-		List<String> objects = r.getObjects();
-		Map<Integer, String> stuff = new HashMap<>();
-		
-		r.getFrames().getFrames().forEach(fr -> {
-			fr.getUpdated().forEach(u -> {
-				int d = u.getObjectId();
-				stuff.put(d, objects.get(d));
-			});
-		});
-		
-		stuff.forEach((e, d) -> {
-			System.out.println(e + " " + d);
-		}); 
-		
-		System.out.println(stuff.size());
-		
 		
 	}
 	
