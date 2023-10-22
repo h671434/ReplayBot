@@ -1,5 +1,8 @@
 package replaybot.data.replay.attribute;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Loadout {
 	
     private final byte version;
@@ -17,9 +20,22 @@ public class Loadout {
     private final int banner;
     private final int productId;
 
-    public Loadout(byte version, int body, int decal, int wheels, int rocketTrail, int antenna, 
-    		int topper, int unknown1, int unknown2, int engineAudio, int trail, int goalExplosion,
-    		int banner, int productId) {
+    @JsonCreator
+    public Loadout(
+    		@JsonProperty("version") byte version, 
+    		@JsonProperty("body") int body, 
+    		@JsonProperty("decal") int decal, 
+    		@JsonProperty("wheels") int wheels, 
+    		@JsonProperty("rocket_trail") int rocketTrail, 
+    		@JsonProperty("antenna") int antenna, 
+    		@JsonProperty("topper") int topper, 
+    		@JsonProperty("unknown1") int unknown1, 
+    		@JsonProperty("unknown2") int unknown2, 
+    		@JsonProperty("engine_audio") int engineAudio, 
+    		@JsonProperty("trail") int trail, 
+    		@JsonProperty("goal_explosion") int goalExplosion,
+    		@JsonProperty("banner") int banner, 
+    		@JsonProperty("product_id") int productId) {
     	this.version = version;
         this.body = body;
         this.decal = decal;
