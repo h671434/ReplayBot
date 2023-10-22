@@ -3,6 +3,7 @@ package replaybot.data.replay.attribute;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import replaybot.data.replay.CompressedWord;
 import replaybot.math.Vector3;
 
 public class AppliedDamage {
@@ -12,19 +13,18 @@ public class AppliedDamage {
     private final int damageIndex;
     private final int totalDamage;
     
-    @JsonCreator
-    public AppliedDamage(
-    		@JsonProperty("id") int id, 
-    		@JsonProperty("position") Vector3 position, 
-    		@JsonProperty("damage_index") int damageIndex, 
-    		@JsonProperty("total_damage") int totalDamage) {
+	public AppliedDamage(
+			@JsonProperty("unknown1") int id, 
+			@JsonProperty("location") Vector3 position, 
+			@JsonProperty("unknown2") int damageIndex, 
+			@JsonProperty("unknown3") int totalDamage) {
 		this.id = id;
 		this.position = position;
 		this.damageIndex = damageIndex;
 		this.totalDamage = totalDamage;
 	}
 
-	public int getId() {
+	public int getAppliedDamageId() {
 		return id;
 	}
 

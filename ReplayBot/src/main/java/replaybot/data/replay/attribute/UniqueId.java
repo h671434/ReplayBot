@@ -3,6 +3,8 @@ package replaybot.data.replay.attribute;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import replaybot.data.replay.remoteid.RemoteId;
+
 public class UniqueId {
 	
     private final int systemId;

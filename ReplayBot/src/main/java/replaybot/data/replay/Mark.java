@@ -1,0 +1,27 @@
+package replaybot.data.replay;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class Mark {
+
+	private final String description;
+	private final int frame;
+	
+	@JsonCreator
+	public Mark(
+			@JsonProperty("description") String description,
+			@JsonProperty("frame") int frame) {
+		this.description = description;
+		this.frame = frame;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public int getFrame() {
+		return frame;
+	}
+	
+}
