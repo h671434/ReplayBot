@@ -1,4 +1,4 @@
-package replaybot.data.storage;
+package replaybot.data.replay.storage;
 
 
 import com.fasterxml.jackson.annotation.JsonAlias;
@@ -28,24 +28,9 @@ public class MathModule extends SimpleModule {
 	private static abstract class Vector3Mixin {
 		@JsonCreator
 		public Vector3Mixin(
-				@JsonProperty("x")
-				double x, 
-				@JsonProperty("y")
-				double y,
-				@JsonProperty("z")
-				double z) {
-		}
-	}
-	
-	private static abstract class RotationVectorMixin {
-		@JsonCreator
-		public RotationVectorMixin(
-				@JsonProperty("pitch")
-				double pitch, 
-				@JsonProperty("yaw")
-				double yaw,
-				@JsonProperty("roll")
-				double roll) {
+				@JsonProperty("x") double x, 
+				@JsonProperty("y") double y,
+				@JsonProperty("z") double z) {
 		}
 	}
 	
@@ -54,20 +39,24 @@ public class MathModule extends SimpleModule {
         @Type(value = Quaternion.class)
     })
 	@JsonTypeInfo(use = JsonTypeInfo.Id.DEDUCTION, defaultImpl = Quaternion.class)
-	private static abstract class RotationMixin {
+	private static abstract class RotationMixin {}
+	
+	private static abstract class RotationVectorMixin {
+		@JsonCreator
+		public RotationVectorMixin(
+				@JsonProperty("pitch") double pitch, 
+				@JsonProperty("yaw") double yaw,
+				@JsonProperty("roll") double roll) {
+		}
 	}
 	
 	private static abstract class QuaternionMixin {
 		@JsonCreator
 		public QuaternionMixin(
-				@JsonProperty("x") 
-				double x, 
-				@JsonProperty("y") 
-				double y,
-				@JsonProperty("z") 
-				double z,
-				@JsonProperty("w") 
-				double w) {
+				@JsonProperty("x") double x, 
+				@JsonProperty("y") double y,
+				@JsonProperty("z") double z,
+				@JsonProperty("w") double w) {
 		}
 	}
 	

@@ -9,10 +9,8 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import replaybot.data.replay.Replay;
-import replaybot.data.storage.AttributeModule;
-import replaybot.data.storage.MathModule;
-import replaybot.data.storage.ReplayModule;
+import replaybot.data.replay.model.Replay;
+import replaybot.data.replay.storage.MathModule;
 
 public class DeserializeReplayTest {
 
@@ -22,9 +20,7 @@ public class DeserializeReplayTest {
 		ObjectMapper mapper = new ObjectMapper();
 		JsonFactory factory = new JsonFactory();
 		
-		mapper.registerModule(new ReplayModule());
 		mapper.registerModule(new MathModule());
-		mapper.registerModule(new AttributeModule());
 		
 		factory.setCodec(mapper);
 		

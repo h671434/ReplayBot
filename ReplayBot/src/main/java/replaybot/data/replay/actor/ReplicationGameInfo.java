@@ -1,9 +1,9 @@
-package replaybot.data.actor;
+package replaybot.data.replay.actor;
 
-import replaybot.data.attribute.ActiveActor;
-import replaybot.data.attribute.Attribute;
+import replaybot.data.replay.attribute.ActiveActor;
+import replaybot.data.replay.attribute.Attribute;
 
-public class GameReplicationInfo extends ReplicationInfo {
+public class ReplicationGameInfo extends ReplicationInfo {
 	
 	private boolean matchIsOver;
 	private ActiveActor gameClass;

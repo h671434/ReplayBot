@@ -1,7 +1,13 @@
-package replaybot.data.replay;
+package replaybot.data.replay.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ReplayProperties {
 
 	private final int teamSize;
@@ -12,8 +18,15 @@ public class ReplayProperties {
 	private final Date date;
 	private final int numFrames;
 
-	public ReplayProperties(int teamSize, int team0Score, int team1Score, String replayName, String id, Date date,
-			int numFrames) {
+	@JsonCreator
+	public ReplayProperties(
+			@JsonProperty("TeamSize") int teamSize, 
+			@JsonProperty("Team0Score") int team0Score, 
+			@JsonProperty("Team1Score") int team1Score, 
+			@JsonProperty("ReplayName") String replayName, 
+			@JsonProperty("Id") String id, 
+			@JsonProperty("Date") @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss") Date date,
+			@JsonProperty("NumFrames") int numFrames) {
 		this.teamSize = teamSize;
 		this.team0Score = team0Score;
 		this.team1Score = team1Score;

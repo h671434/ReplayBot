@@ -1,6 +1,9 @@
-package replaybot.data.replay;
+package replaybot.data.replay.model;
 
-import replaybot.data.attribute.Attribute;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import replaybot.data.replay.attribute.Attribute;
 
 public class UpdatedAttribute {
 	
@@ -9,7 +12,12 @@ public class UpdatedAttribute {
 	private final int objectId;
 	private final Attribute attribute;
 	
-	public UpdatedAttribute(int actorId, int streamId, int objectId, Attribute attribute) {
+	@JsonCreator
+	public UpdatedAttribute(
+			@JsonProperty("actor_id") int actorId, 
+			@JsonProperty("stream_id") int streamId, 
+			@JsonProperty("object_id") int objectId,
+			@JsonProperty("attribute") Attribute attribute) {
 		this.actorId = actorId;
 		this.streamId = streamId;
 		this.objectId = objectId;

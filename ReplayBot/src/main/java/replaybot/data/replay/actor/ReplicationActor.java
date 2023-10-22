@@ -1,9 +1,9 @@
-package replaybot.data.actor;
+package replaybot.data.replay.actor;
 
-import replaybot.data.attribute.Attribute;
+import replaybot.data.replay.attribute.Attribute;
 import replaybot.math.Rotation;
 
-public abstract class Actor {
+public abstract class ReplicationActor {
 
 	private boolean blockActors; 
 	private boolean collideActors; 

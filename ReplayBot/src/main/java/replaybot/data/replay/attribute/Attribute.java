@@ -1,4 +1,8 @@
-package replaybot.data.attribute;
+package replaybot.data.replay.attribute;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import replaybot.data.replay.storage.AttributeDeserializer;
 
 /**
  * Interface to be used similar to Rust enums using pattern matching:
@@ -7,6 +11,7 @@ package replaybot.data.attribute;
  * 			doSomethingWithByte(byte);
  * 		}
  */
+@JsonDeserialize(using = AttributeDeserializer.class)
 public sealed interface Attribute {
 	
 	record Byte(byte value) implements Attribute {}
@@ -15,8 +20,8 @@ public sealed interface Attribute {
 	record Float(float value) implements Attribute {}
 	record String(java.lang.String value) implements Attribute {}
 	record Rotation(replaybot.math.Rotation value) implements Attribute {}
-	record ActiveActor(replaybot.data.attribute.ActiveActor value) implements Attribute {}
-	record RigidBody(replaybot.data.attribute.RigidBody value) implements Attribute {}
+	record ActiveActor(replaybot.data.replay.attribute.ActiveActor value) implements Attribute {}
+	record RigidBody(replaybot.data.replay.attribute.RigidBody value) implements Attribute {}
 	record NotImplemented() implements Attribute {}
 	
 	default byte asByte() throws IllegalArgumentException {
@@ -67,7 +72,7 @@ public sealed interface Attribute {
 		throw new IllegalArgumentException("Attribute is not of type Attribute.Rotation");
 	}
 	
-	default replaybot.data.attribute.ActiveActor asActiveActor() throws IllegalArgumentException {
+	default replaybot.data.replay.attribute.ActiveActor asActiveActor() throws IllegalArgumentException {
 		if(this instanceof Attribute.ActiveActor attribute) {
 			return attribute.value;
 		}
@@ -75,7 +80,7 @@ public sealed interface Attribute {
 		throw new IllegalArgumentException("Attribute is not of type Attribute.ActiveActor");
 	}
 	
-	default replaybot.data.attribute.RigidBody asRigidBody() throws IllegalArgumentException {
+	default replaybot.data.replay.attribute.RigidBody asRigidBody() throws IllegalArgumentException {
 		if(this instanceof Attribute.RigidBody attribute) {
 			return attribute.value;
 		}

@@ -1,7 +1,10 @@
-package replaybot.data.replay;
+package replaybot.data.replay.model;
 
 import java.util.List;
 import java.util.function.Consumer;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Frame {
 	
@@ -11,8 +14,13 @@ public class Frame {
 	private final List<UpdatedAttribute> updatedActors;
 	private final List<Integer> deletedActors;
 	
-	public Frame(double time, double delta, List<NewActor> newActors, List<UpdatedAttribute> updatedActors,
-			List<Integer> deletedActors) {
+	@JsonCreator
+	public Frame(				
+			@JsonProperty("time") double time, 
+			@JsonProperty("delta") double delta, 
+			@JsonProperty("new_actors") List<NewActor> newActors, 
+			@JsonProperty("updated_actors") List<UpdatedAttribute> updatedActors,
+			@JsonProperty("deleted_actors") List<Integer> deletedActors) {
 		this.time = time;
 		this.delta = delta;
 		this.newActors = newActors;

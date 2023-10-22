@@ -1,10 +1,10 @@
-package replaybot.data.actor;
+package replaybot.data.replay.actor;
 
-import replaybot.data.attribute.ActiveActor;
-import replaybot.data.attribute.Attribute;
+import replaybot.data.replay.attribute.ActiveActor;
+import replaybot.data.replay.attribute.Attribute;
 import replaybot.math.Rotation;
 
-public abstract class Pawn extends Actor {
+public abstract class ReplicationPawn extends ReplicationActor {
 
 	private ActiveActor playerReplicationInfo;
 	private int healthMax; 
@@ -12,7 +12,7 @@ public abstract class Pawn extends Actor {
     @Override
     public void setField(String field, Attribute attribute) throws IllegalArgumentException {
     	switch(field) {
-    	case "Engine.Pawn:PlayerReplicationInfo" -> playerReplicationInfo = attribute.asActiveActor();
+    	case "Engine.Pawn:ReplicationPlayerInfo" -> playerReplicationInfo = attribute.asActiveActor();
     	case "Engine.Pawn:HealthMax" -> healthMax = attribute.asInt();
     	default -> super.setField(field, attribute);
     	}

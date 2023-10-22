@@ -1,9 +1,10 @@
 package replaybot.data;
 
-public class DataPacket {
+import rlbot.flat.GameTickPacket;
 
-	public DataPacket() {
+public class DataPacket {
+	
+	public DataPacket(GameTickPacket packet) {
 		
 	}
-	
 }

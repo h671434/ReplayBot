@@ -1,4 +1,4 @@
-package replaybot.data.attribute;
+package replaybot.data.replay.attribute;
 
 import replaybot.math.Vector3;
 
