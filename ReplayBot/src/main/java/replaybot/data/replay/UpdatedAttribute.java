@@ -10,14 +10,14 @@ public class UpdatedAttribute {
 	private final int actorId;
 	private final int streamId;
 	private final int objectId;
-	private final Attribute attribute;
+	private final Object attribute;
 	
 	@JsonCreator
 	public UpdatedAttribute(
 			@JsonProperty("actor_id") int actorId, 
 			@JsonProperty("stream_id") int streamId, 
 			@JsonProperty("object_id") int objectId,
-			@JsonProperty("attribute") Attribute attribute) {
+			@JsonProperty("attribute") Object attribute) {
 		this.actorId = actorId;
 		this.streamId = streamId;
 		this.objectId = objectId;
@@ -36,8 +36,8 @@ public class UpdatedAttribute {
 		return objectId;
 	}
 
-	public Attribute getAttribute() {
-		return attribute;
+	public <T> T getAttributeAs(Class<T> vc) throws ClassCastException {
+		return vc.cast(attribute);
 	}
 
 }
