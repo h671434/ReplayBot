@@ -14,7 +14,7 @@ public class SpawnTrajectory {
 	@JsonCreator
 	public SpawnTrajectory(
 			@JsonProperty("location") Vector3 location,
-			@JsonProperty("rotation") Rotation rotation) {
+			@JsonProperty("rotation") Vector3 rotation) {
 		this.location = location;
 		this.rotation = rotation;
 	}

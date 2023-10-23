@@ -11,56 +11,36 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import replaybot.data.replay.storage.MixInModule;
+
 public class ReadReplayStuffs {
 
-	private static final String PATH = "src/test/resources/replays/json/example.json";
-
-	void test() {
+	private static final String PATH = "src/test/resources/replays/ex.json";
+	
+	public static void main(String[] args){
 		ObjectMapper mapper = new ObjectMapper();
-		File file = new File(PATH);
+		JsonFactory factory = new JsonFactory();
 		
-		Map<String, Integer> spawnednames = null;
-		Map<String, String> updatednames = new LinkedHashMap<>();
+		mapper.registerModule(new MixInModule());
+		
+		factory.setCodec(mapper);
+		
+		System.out.println(mapper.mixInCount());
+		System.out.println(mapper.findMixInClassFor(Replay.class));
 
+		File f = new File(PATH);
+		
+		Replay r = null;
 		try {
-			JsonNode root = mapper.readTree(file);
+			JsonParser jp = factory.createParser(f);
 			
-			updatednames = getUpdated(root);
-			
+			r = mapper.readValue(jp, Replay.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		String format = "%-70s | %-52s %n";
 		
-		
-		System.out.println("\nUpdated : " + updatednames.size());
-		updatednames.forEach((String name, String type) -> System.out.format(format, name, type));
 	}
 	
-	public Map<String, String> getUpdated(JsonNode root) {
-		Map<String, String> updatednames = new LinkedHashMap<>();
-		
-		JsonNode frames = root.get("content").get("body").get("frames");
-		
-		for(int i = 0; i < frames.size(); i++) {
-			JsonNode f = frames.get(i);
-			
-			f.get("replications").forEach((JsonNode r) -> {		
-				JsonNode updated = r.get("value").get("updated");
-				
-				if(updated != null) {
-					updated.forEach((JsonNode u) -> {
-						String n = u.get("name").asText();
-						String t = u.get("value").fieldNames().next();
-						
-						updatednames.put(n, t);
-					});
-				}
-			});
-		};
-		
-		return updatednames;
-	}
 
 }

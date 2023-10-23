@@ -1,25 +1,26 @@
 package replaybot.data.replay;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import replaybot.data.replay.attribute.Attribute;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UpdatedAttribute {
 	
 	private final int actorId;
-	private final int streamId;
 	private final int objectId;
-	private final Object attribute;
+	private final Attribute attribute;
 	
 	@JsonCreator
 	public UpdatedAttribute(
 			@JsonProperty("actor_id") int actorId, 
-			@JsonProperty("stream_id") int streamId, 
 			@JsonProperty("object_id") int objectId,
-			@JsonProperty("attribute") Object attribute) {
+			@JsonProperty("attribute") Attribute attribute) {
 		this.actorId = actorId;
-		this.streamId = streamId;
 		this.objectId = objectId;
 		this.attribute = attribute;
 	}
@@ -28,15 +29,11 @@ public class UpdatedAttribute {
 		return actorId;
 	}
 
-	public int getStreamId() {
-		return streamId;
-	}
-
 	public int getObjectId() {
 		return objectId;
 	}
 
-	public <T> T getAttributeAs(Class<T> vc) throws ClassCastException {
+	public <T extends Attribute> T getAttributeAs(Class<T> vc) throws ClassCastException {
 		return vc.cast(attribute);
 	}
 
