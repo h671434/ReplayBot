@@ -3,7 +3,7 @@ package replaybot.data.replay.attribute;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import replaybot.data.replay.model.Trajectory;
+import replaybot.data.replay.SpawnTrajectory;
 import replaybot.math.Rotation;
 import replaybot.math.Vector3;
 

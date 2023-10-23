@@ -1,6 +1,6 @@
 package replaybot.math;
 
-public class Vector3 {
+public class Vector3 implements Rotation {
 	
 	public static final Vector3 ZERO = new Vector3(0, 0, 0);
 
@@ -32,6 +32,23 @@ public class Vector3 {
 
 	public double z() {
 		return z;
+	}
+
+	@Override
+	public Vector3 asEulerAngles() {
+		return this;
+	}
+
+	@Override
+	public Quaternion asQuaternion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Matrix3x3 asRotationMatrix() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

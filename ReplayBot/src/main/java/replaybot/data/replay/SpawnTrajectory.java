@@ -1,4 +1,4 @@
-package replaybot.data.replay.model;
+package replaybot.data.replay;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import replaybot.math.Rotation;
 import replaybot.math.Vector3;
 
-public class Trajectory {
+public class SpawnTrajectory {
 
 	private final Vector3 location;
 	private final Rotation rotation;
 
 	@JsonCreator
-	public Trajectory(
+	public SpawnTrajectory(
 			@JsonProperty("location") Vector3 location,
 			@JsonProperty("rotation") Rotation rotation) {
 		this.location = location;

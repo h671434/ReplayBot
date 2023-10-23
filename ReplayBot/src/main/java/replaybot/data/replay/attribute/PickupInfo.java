@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PickupInfo {
+	
     private final boolean active;
     private final int actor;
     private final boolean itemsArePreview;

@@ -19,34 +19,25 @@ public class MathModule extends SimpleModule {
 	
 	public MathModule() {
 		super("MathModule");
-		setMixInAnnotation(Vector3.class, Vector3Mixin.class);
 		setMixInAnnotation(Rotation.class, RotationMixin.class);
-		setMixInAnnotation(RotationVector.class, RotationVectorMixin.class);
+		setMixInAnnotation(Vector3.class, Vector3Mixin.class);
 		setMixInAnnotation(Quaternion.class, QuaternionMixin.class);
 	}
 	
-	private static abstract class Vector3Mixin {
-		@JsonCreator
-		public Vector3Mixin(
-				@JsonProperty("x") double x, 
-				@JsonProperty("y") double y,
-				@JsonProperty("z") double z) {
-		}
-	}
 	
 	@JsonSubTypes({
-		@Type(value = RotationVector.class),
+		@Type(value = Vector3.class),
         @Type(value = Quaternion.class)
     })
 	@JsonTypeInfo(use = JsonTypeInfo.Id.DEDUCTION, defaultImpl = Quaternion.class)
 	private static abstract class RotationMixin {}
 	
-	private static abstract class RotationVectorMixin {
+	private static abstract class Vector3Mixin {
 		@JsonCreator
-		public RotationVectorMixin(
-				@JsonProperty("pitch") double pitch, 
-				@JsonProperty("yaw") double yaw,
-				@JsonProperty("roll") double roll) {
+		public Vector3Mixin(
+				@JsonProperty("x") @JsonAlias("pitch") double x, 
+				@JsonProperty("y") @JsonAlias("roll") double y,
+				@JsonProperty("z") @JsonAlias("yaw") double z) {
 		}
 	}
 	

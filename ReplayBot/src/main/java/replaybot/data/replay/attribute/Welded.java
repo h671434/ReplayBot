@@ -7,6 +7,7 @@ import replaybot.math.Rotation;
 import replaybot.math.Vector3;
 
 public class Welded {
+	
     private final boolean active;
     private final int actor;
     private final Vector3 offset;
