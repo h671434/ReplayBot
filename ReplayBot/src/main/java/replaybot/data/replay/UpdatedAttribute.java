@@ -32,9 +32,9 @@ public class UpdatedAttribute {
 	public int getObjectId() {
 		return objectId;
 	}
-
-	public <T extends Attribute> T getAttributeAs(Class<T> vc) throws ClassCastException {
-		return vc.cast(attribute);
+	
+	public Attribute getAttribute() {
+		return attribute;
 	}
 
 }

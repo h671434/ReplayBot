@@ -32,6 +32,10 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 	@Type(value = Attribute.NotImplementedAttribute.class)
 })
 public sealed interface Attribute {
+	
+	default <T extends Attribute> T castTo(Class<T> vc) throws ClassCastException {
+		return vc.cast(this);
+	}
 
 	record BooleanAttribute(@JsonProperty("Boolean") boolean value) implements Attribute {}
 	

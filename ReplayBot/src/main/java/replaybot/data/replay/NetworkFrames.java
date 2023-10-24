@@ -19,6 +19,10 @@ public class NetworkFrames implements Iterator<Frame> {
 		this.frames = frames;
 	}
 	
+	public Frame current() {
+		return current;
+	}
+	
 	@Override
 	public Frame next() {
 		current = frames.get(nextFrame++);

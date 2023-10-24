@@ -1,11 +1,19 @@
 package replaybot.math;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Quaternion implements Rotation {
 	
 	private final Vector3 vector;
 	private final double w;	
 	
-	public Quaternion(double x, double y, double z, double w) {
+	@JsonCreator
+	public Quaternion(
+			@JsonProperty("x") double x, 
+			@JsonProperty("y") double y,
+			@JsonProperty("z") double z,
+			@JsonProperty("w") double w) {
 		this.vector = new Vector3(x, y, z);
 		this.w = w;
 	}

@@ -11,8 +11,6 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import replaybot.data.replay.storage.MixInModule;
-
 public class ReadReplayStuffs {
 
 	private static final String PATH = "src/test/resources/replays/ex.json";
@@ -20,8 +18,6 @@ public class ReadReplayStuffs {
 	public static void main(String[] args){
 		ObjectMapper mapper = new ObjectMapper();
 		JsonFactory factory = new JsonFactory();
-		
-		mapper.registerModule(new MixInModule());
 		
 		factory.setCodec(mapper);
 		
