@@ -20,23 +20,23 @@ public class ActorFactory {
 		return null; 	// TODO
 	}
 	
-	public CarComponentBoost createCarComponentBoost(SpawnTrajectory initialTrajectory) {
+	public ReplicatedBoost createCarComponentBoost(SpawnTrajectory initialTrajectory) {
 		return null; 	// TODO
 	}
 	
-	public CarComponentDodge createCarComponentDodge(SpawnTrajectory initialTrajectory) {
+	public ReplicatedDodge createCarComponentDodge(SpawnTrajectory initialTrajectory) {
 		return null; 	// TODO
 	}
 	
-	public CarComponentJump createCarComponentJump(SpawnTrajectory initialTrajectory) {
+	public ReplicatedJump createCarComponentJump(SpawnTrajectory initialTrajectory) {
 		return null; 	// TODO
 	}
 	
-	public CarComponentDoubleJump createCarComponentDoubleJump(SpawnTrajectory initialTrajectory) {
+	public ReplicatedDoubleJump createCarComponentDoubleJump(SpawnTrajectory initialTrajectory) {
 		return null; 	// TODO
 	}
 	
-	public CarComponentFlipCar createCarComponentFlipCar(SpawnTrajectory initialTrajectory) {
+	public ReplicatedFlipCar createCarComponentFlipCar(SpawnTrajectory initialTrajectory) {
 		return null; 	// TODO
 	}
 	

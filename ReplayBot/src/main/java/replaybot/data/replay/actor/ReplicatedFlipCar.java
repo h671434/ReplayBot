@@ -1,5 +1,5 @@
 package replaybot.data.replay.actor;
 
-public class CarComponent {
+public class ReplicatedFlipCar {
 
 }
