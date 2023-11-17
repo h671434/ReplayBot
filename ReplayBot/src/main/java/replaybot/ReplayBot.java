@@ -1,45 +1,38 @@
 package replaybot;
 
 import replaybot.data.ControlsOutput;
-import rlbot.Bot;
+import rlbot.BaseBot;
 import rlbot.ControllerState;
 import rlbot.flat.GameTickPacket;
 
-public class ReplayBot implements Bot {
+public class ReplayBot extends BaseBot {
 
-    private final int playerIndex;
+    public ReplayBot(int index, int team) {
+		super(index, team);
+	}
 
-    public ReplayBot(int playerIndex) {
-        this.playerIndex = playerIndex;
-    }
-
-    @Override
+	@Override
     public ControllerState processInput(GameTickPacket packet) {
-        if(!isValid(packet)) {
+        if(!isValidPacket(packet)) {
             return new ControlsOutput();
         }
 
         // TODO
         
-
         return new ControlsOutput();
     }
     
-    private boolean isValid(GameTickPacket packet) {
-    	return packet.playersLength() > playerIndex 
+    private boolean isValidPacket(GameTickPacket packet) {
+    	return packet.playersLength() > index 
     			|| packet.ball() != null 
     			|| packet.gameInfo().isRoundActive();
     }
 
     @Override
     public void retire() {
-        System.out.println("Retiring sample bot " + playerIndex);
+        System.out.println("Retiring sample bot " + index);
     }
     
-    @Override
-    public int getIndex() {
-        return this.playerIndex;
-    }
 
     
 }

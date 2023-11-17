@@ -12,6 +12,7 @@ public class BotPythonInterface extends SocketServer {
 
     @Override
     protected Bot initBot(int index, String botType, int team) {
-        return new ReplayBot(index);
+        return new ReplayBot(index, team);
     }
+    
 }
