@@ -16,7 +16,7 @@ public class ReplayBot extends BaseBot {
         if(!isValidPacket(packet)) {
             return new ControlsOutput();
         }
-
+        
         // TODO
         
         return new ControlsOutput();
