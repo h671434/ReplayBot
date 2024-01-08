@@ -23,6 +23,10 @@ dependencies {
     implementation 'org.rlbot.commons:framework:2.+'
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.3'
+    
+	implementation 'org.springframework.boot:spring-boot-starter:3.2.0'
+	implementation 'org.springframework.boot:spring-boot-starter-parent:3.2.0'
+	implementation 'org.springframework.boot:spring-boot-starter-web:3.2.0'
 
     // This is makes it easy to find the dll when running in intellij, where JVM args don't get passed from gradle.
     runtimeOnly files(dllDirectory)
